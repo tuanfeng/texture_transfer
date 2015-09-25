@@ -1,3 +1,5 @@
+#usage: python clean.py input_file.obj output_file.obj
+
 import sys
 
 input_file = sys.argv[1]

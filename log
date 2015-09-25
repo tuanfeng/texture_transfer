@@ -1,0 +1,22 @@
+
+importing obj '/Users/tuanfeng/Documents/ResearchWork/project_2/code/texture_transfer/model_c.obj'
+	parsing obj file...
+0.1358 sec
+	loading materials and images...
+0.0001 sec
+	building geometry...
+	verts:4522 faces:17228 materials: 1 smoothgroups:1 ...
+finished importing: b'/Users/tuanfeng/Documents/ResearchWork/project_2/code/texture_transfer/model_c.obj' in 0.2924 sec.
+Smart Projection time: 0.02
+Smart Projection time: 0.08
+Smart Projection time: 0.07
+Smart Projection time: 0.06
+Smart Projection time: 0.19
+Smart Projection time: 0.05
+Smart Projection time: 0.02
+OBJ Export path: '/Users/tuanfeng/Documents/ResearchWork/project_2/code/texture_transfer/model_p.obj'
+OBJ Export time: 0.20
+found bundled python: /Applications/blender.app/Contents/MacOS/../Resources/2.72/python
+read blend: /Users/tuanfeng/Documents/ResearchWork/project_2/code/texture_transfer/empty.blend
+
+Blender quit
