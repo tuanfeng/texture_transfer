@@ -23,14 +23,22 @@ obj_name = os.path.splitext(os.path.basename(input_file))[0]
 for objs in bpy.data.objects:
 	objs.select = False
 
+
+newpath = './uv_layout/' 
+if not os.path.exists(newpath): os.makedirs(newpath)
+
+cc=0
 for objs in bpy.data.objects:
 	if objs.type == 'MESH':
+		cc=cc+1
 		objs.select = True
 		bpy.context.scene.objects.active = objs
 		bpy.ops.object.mode_set(mode = 'EDIT')#bpy.ops.object.editmode_toggle()
 		bpy.ops.mesh.normals_make_consistent(inside=False)
+		bpy.ops.mesh.quads_convert_to_tris()
 		bpy.ops.object.mode_set(mode = 'OBJECT')
 		bpy.ops.uv.smart_project(angle_limit=66.0, island_margin=0.0, user_area_weight=0.0)
+		bpy.ops.uv.export_layout(filepath="./uv_layout/"+"%03d"%cc+".png", check_existing=False, export_all=False, mode='PNG', size=(1024, 1024), opacity=0.25)
 		objs.select = False
 
 bpy.ops.export_scene.obj(filepath=output_file,check_existing=False,use_materials=False)

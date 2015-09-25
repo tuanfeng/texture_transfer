@@ -24,6 +24,8 @@ for line in f2.readlines():
 	if linet[0] == 'o':
 		group_count = group_count + 1
 		f3.write('usemtl texture'+"%03d"%group_count+'\n')
+	if linet[0] == 's':
+		f3.write('s off\n')
 
 f2.close()
 f3.close()
@@ -44,16 +46,17 @@ for i in range(1,group_count+1):
 	f4.write('Ks 0.8 0.8 0.8\n')
 	f4.write('d 1\n')
 	f4.write('illum 2\n')
-	f4.write('map_Kd ./texture/texture'+"%03d"%i+'.jpg\n')
+	f4.write('map_Kd ./texture/texture'+"%03d"%i+'.png\n')
 	f4.write('\n')
 
 f4.close()
 
-#img = Image.new('RGB',(1024,1024),"white")
-img = Image.open('checkerboard.jpg')
+img = Image.new('RGB',(1000,1000),"white")
+#img = Image.open('checkerboard.jpg')
+
 #img.putdata(my_list)
 for i in range(1,group_count+1):
-	img.save('./texture/texture'+"%03d"%i+'.jpg')
+	img.save('./texture/texture'+"%03d"%i+'.png')
 
 
 

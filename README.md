@@ -12,3 +12,11 @@ parameterization: generate uv coordinate
 initial texture image
 
 	python textureinit.py model_p.obj model_t.obj
+
+get est-view.txt
+	
+	/../RenderForCNN-master/demo_render/run_demo.py (est-view.txt on desktop)
+
+project texture image
+	
+	python image.png model_t.obj est_view.txt
