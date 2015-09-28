@@ -1,4 +1,4 @@
-# texture_transfer
+# projection
 
 
 clean obj file (clean_info)
