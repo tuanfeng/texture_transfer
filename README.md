@@ -19,4 +19,4 @@ get est-view.txt
 
 project texture image
 	
-	python image.png model_t.obj est_view.txt
+	python textureproj.py image.png model_t.obj est-view.txt

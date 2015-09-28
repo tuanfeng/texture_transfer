@@ -8,23 +8,120 @@ image_file = sys.argv[1]
 model_file = sys.argv[2]
 ve_file = sys.argv[3]
 
+rimg = Image.open(image_file)
+rimg_pd={}
+
+#upsam=10
+
+for i in range(0,rimg.size[0]):
+	for j in range(0,rimg.size[1]):
+		rimg_pd[i,j]=1000000.0
+
+#rimg_p = rimg.load()
+#for i in range(100,400):
+#	for j in range(200,400):
+#		rimg_p[i,j] = (255,0,0)
+
+#rimg.show()
+
+fve = open(ve_file,'r')
+lfve=fve.readlines()
+cx=float(lfve[0].split()[0])
+cy=float(lfve[0].split()[1])
+cz=float(lfve[0].split()[2])
+qw=float(lfve[0].split()[3])
+qx=float(lfve[0].split()[4])
+qy=float(lfve[0].split()[5])
+qz=float(lfve[0].split()[6])
+fve.close()
+
+#print cx,cy,cz
+
+R11=qw*qw+qx*qx-qz*qz-qy*qy
+R21=2*qx*qy-2*qz*qw
+R31=2*qy*qw+2*qx*qz
+R12=2*qx*qy+2*qz*qw
+R22=qy*qy+qw*qw-qx*qx-qz*qz
+R32=2*qz*qy-2*qx*qw
+R13=2*qx*qz-2*qy*qw 
+R23=2*qy*qz+2*qw*qx
+R33=qz*qz+qw*qw-qx*qx-qy*qy
+
+#print R11,R12,R13
+#print R21,R22,R23
+#print R31,R32,R33
+
+focal = float(rimg.size[0])*35.0/32.0
+
+
+#v3d_x=0.1
+#v3d_y=0.0
+#v3d_z=0.0
+#ppx=R11*(v3d_x-cx)+R12*(v3d_y-cy)+R13*(v3d_z-cz)
+#ppy=R21*(v3d_x-cx)+R22*(v3d_y-cy)+R23*(v3d_z-cz)
+#ppz=R31*(v3d_x-cx)+R32*(v3d_y-cy)+R33*(v3d_z-cz)
+#pfx=int(rimg.size[0]/2-focal*ppx/ppz)
+#pfy=int(rimg.size[1]/2-focal*ppy/ppz)
+
+#print ppx,ppy,ppz,pfx,pfy
+
+
+
+#exit()
+
+
 obj_name = os.path.splitext(os.path.basename(model_file))[0]
 mtl_file = model_file[:-3]+'mtl'
 
+
+#load_mesh
+
+f1 = open(model_file,'r')
+
+arrayv_={}
+cv_=0
+arrayf_={}
+cf_=0
+
+for line in f1.readlines():
+	linet = line.split()
+	if linet[0] == 'v':
+		cv_ = cv_ + 1
+		arrayv_[cv_,1] = float(linet[1])
+		arrayv_[cv_,2] = float(linet[2])
+		arrayv_[cv_,3] = float(linet[3])
+	if linet[0] == 'f':
+		cf_ = cf_ + 1
+		arrayf_[cf_,1] = int(linet[1].split('/')[0])
+		arrayf_[cf_,2] = int(linet[2].split('/')[0])
+		arrayf_[cf_,3] = int(linet[3].split('/')[0])
+		
+
+f1.close()
+
+
+
 f2 = open(model_file,'r')
 
-img_name=''
 
 arrayv={}
 cv=0
 arrayvt={}
 cvt=0
 
+img_name={}
+img={}
+img_p={}
+img_rx={}
+img_ry={}
+img_rd={}
+
+
+cim=0
+
 for line in f2.readlines():
 	linet = line.split()
 	if linet[0] == 'usemtl':
-		if not img_name=='':
-			img.save(img_name)
 		f3 = open(mtl_file,'r')
 		flag = 0
 		for l_ in f3.readlines():
@@ -32,11 +129,18 @@ for line in f2.readlines():
 			if len(lt_)>1 and lt_[0] == 'newmtl' and lt_[1] == linet[1]:
 				flag = 1
 			if flag == 1 and lt_[0] == 'map_Kd':
-				img_name = model_file[:-(4+len(obj_name))]+lt_[1]
-				print img_name
-				img = Image.open(img_name)
-				img_p = img.load()
-				(img_size_x, img_size_y) = img.size
+				cim=cim+1
+				img_name[cim] = model_file[:-(4+len(obj_name))]+lt_[1]
+				print img_name[cim]
+				img[cim] = Image.open(img_name[cim])
+				img_p[cim] = img[cim].load()
+				(img_size_x, img_size_y) = img[cim].size
+				img_rx[cim]={}
+				img_ry[cim]={}
+				img_rd[cim]={}
+				for lsi in range(0,img_size_x):
+					for lsj in range(0,img_size_y):
+						img_rd[cim][lsi,lsj] = -1.0
 				break
 		f3.close()
 	if linet[0] == 'v':
@@ -92,11 +196,7 @@ for line in f2.readlines():
 			t2x=vit_[3,1]-vit_[1,1]
 			t2y=vit_[3,2]-vit_[1,2]
 			frx=int(vit_[1,1])
-			#if frx>0:
-			#	frx=frx-1
 			ftx=int(vit_[2,1])
-			#if ftx<img_size_y-1:
-			#	ftx=ftx+1
 			for li in range(frx,ftx+1):
 				p1=(li-vit_[1,1])/(t1x)
 				q1=vit_[1,2]+(t1y)*p1
@@ -122,23 +222,34 @@ for line in f2.readlines():
 					v3d_2_x=arrayv[fv[order[2]],1]
 					v3d_2_y=arrayv[fv[order[2]],2]
 					v3d_2_z=arrayv[fv[order[2]],3]
-					v3d_x=v3d_base_x+lam*(v3d_1_x-v3d_base_x)+mu*(v3d_2_x-v3d_base_x)
-					v3d_y=v3d_base_y+lam*(v3d_1_y-v3d_base_y)+mu*(v3d_2_y-v3d_base_y)
-					v3d_z=v3d_base_z+lam*(v3d_1_z-v3d_base_z)+mu*(v3d_2_z-v3d_base_z)
-					if li>=0 and li<img_size_x and lj>=0 and lj<img_size_y:
-						img_p[li,lj]=(255,0,0)
-					#do some thing
+					v3d_x_=v3d_base_x+lam*(v3d_1_x-v3d_base_x)+mu*(v3d_2_x-v3d_base_x)
+					v3d_y_=v3d_base_y+lam*(v3d_1_y-v3d_base_y)+mu*(v3d_2_y-v3d_base_y)
+					v3d_z_=v3d_base_z+lam*(v3d_1_z-v3d_base_z)+mu*(v3d_2_z-v3d_base_z)
+					v3d_x=v3d_x_
+					v3d_y=-v3d_z_
+					v3d_z=v3d_y_
+					ppx=R11*(v3d_x-cx)+R12*(v3d_y-cy)+R13*(v3d_z-cz)
+					ppy=R21*(v3d_x-cx)+R22*(v3d_y-cy)+R23*(v3d_z-cz)
+					ppz=R31*(v3d_x-cx)+R32*(v3d_y-cy)+R33*(v3d_z-cz)
+					pfx=int(rimg.size[0]/2-focal*ppx/ppz)
+					pfy=int(rimg.size[1]/2+focal*ppy/ppz)
+					if pfx>=0 and pfx<rimg.size[0] and pfy>=0 and pfy<rimg.size[1]:
+						pix = rimg.getpixel((pfx,pfy))
+						if li>=0 and li<img_size_x and lj>=0 and lj<img_size_y:
+							dpt=(v3d_x-cx)*(v3d_x-cx)+(v3d_y-cy)*(v3d_y-cy)+(v3d_z-cz)*(v3d_z-cz)
+							if rimg_pd[pfx,pfy]>dpt:
+								rimg_pd[pfx,pfy] = dpt
+							img_p[cim][li,img_size_y-lj-1]=pix
+							img_rd[cim][li,img_size_y-lj-1]=dpt
+							img_rx[cim][li,img_size_y-lj-1]=pfx
+							img_ry[cim][li,img_size_y-lj-1]=pfy
 		if int(vit_[2,1]) < int(vit_[3,1]):
 			t1x=vit_[2,1]-vit_[3,1]
 			t1y=vit_[2,2]-vit_[3,2]
 			t2x=vit_[1,1]-vit_[3,1]
 			t2y=vit_[1,2]-vit_[3,2]
 			frx=int(vit_[2,1])
-			#if frx>0:
-			#	frx=frx-1
 			ftx=int(vit_[3,1])
-			#if ftx<img_size_y-1:
-			#	ftx=ftx+1
 			for li in range(frx,ftx+1):
 				p1=(li-vit_[3,1])/(t1x)
 				q1=vit_[3,2]+(t1y)*p1
@@ -164,16 +275,65 @@ for line in f2.readlines():
 					v3d_2_x=arrayv[fv[order[0]],1]
 					v3d_2_y=arrayv[fv[order[0]],2]
 					v3d_2_z=arrayv[fv[order[0]],3]
-					v3d_x=v3d_base_x+lam*(v3d_1_x-v3d_base_x)+mu*(v3d_2_x-v3d_base_x)
-					v3d_y=v3d_base_y+lam*(v3d_1_y-v3d_base_y)+mu*(v3d_2_y-v3d_base_y)
-					v3d_z=v3d_base_z+lam*(v3d_1_z-v3d_base_z)+mu*(v3d_2_z-v3d_base_z)
-					if li>=0 and li<img_size_x and lj>=0 and lj<img_size_y:
-						img_p[li,lj]=(255,0,0)
-					#do some thing
+					v3d_x_=v3d_base_x+lam*(v3d_1_x-v3d_base_x)+mu*(v3d_2_x-v3d_base_x)
+					v3d_y_=v3d_base_y+lam*(v3d_1_y-v3d_base_y)+mu*(v3d_2_y-v3d_base_y)
+					v3d_z_=v3d_base_z+lam*(v3d_1_z-v3d_base_z)+mu*(v3d_2_z-v3d_base_z)
+					v3d_x=v3d_x_
+					v3d_y=-v3d_z_
+					v3d_z=v3d_y_
+					ppx=R11*(v3d_x-cx)+R12*(v3d_y-cy)+R13*(v3d_z-cz)
+					ppy=R21*(v3d_x-cx)+R22*(v3d_y-cy)+R23*(v3d_z-cz)
+					ppz=R31*(v3d_x-cx)+R32*(v3d_y-cy)+R33*(v3d_z-cz)
+					pfx=int(rimg.size[0]/2-focal*ppx/ppz)
+					pfy=int(rimg.size[1]/2+focal*ppy/ppz)
+					if pfx>=0 and pfx<rimg.size[0] and pfy>=0 and pfy<rimg.size[1]:
+						pix = rimg.getpixel((pfx,pfy))
+						if li>=0 and li<img_size_x and lj>=0 and lj<img_size_y:
+							dpt=(v3d_x-cx)*(v3d_x-cx)+(v3d_y-cy)*(v3d_y-cy)+(v3d_z-cz)*(v3d_z-cz)
+							if rimg_pd[pfx,pfy]>dpt:
+								rimg_pd[pfx,pfy] = dpt
+							img_p[cim][li,img_size_y-lj-1]=pix
+							img_rd[cim][li,img_size_y-lj-1]=dpt
+							img_rx[cim][li,img_size_y-lj-1]=pfx
+							img_ry[cim][li,img_size_y-lj-1]=pfy
 
-if not img_name=='':
-	img.save(img_name)
 
+
+dpt_min=100000.0
+dpt_max=-1.0
+
+for i in range(0,rimg.size[0]):
+	for j in range(0,rimg.size[1]):
+		if rimg_pd[i,j]>dpt_max and rimg_pd[i,j]<1000:
+			dpt_max = rimg_pd[i,j]
+		if rimg_pd[i,j]<dpt_min:
+			dpt_min = rimg_pd[i,j]
+
+print dpt_min,dpt_max
+
+dimg = Image.new( 'RGB', rimg.size, "green") # create a new black image
+pixels = dimg.load() # create the pixel map
+
+for i in range(dimg.size[0]):    # for every pixel:
+    for j in range(dimg.size[1]):
+        if rimg_pd[i,j]<1000:
+        	pixels[i,j] = (int(rimg_pd[i,j]/dpt_max*255),int(rimg_pd[i,j]/dpt_max*255),int(rimg_pd[i,j]/dpt_max*255)) # set the colour accordingly
+        if rimg_pd[i,j]>1000:
+        	pixels[i,j] = (255,0,0)
+
+dimg.show()
+
+
+ep = 0.01
+for i in range(1,cim+1):
+	for li in range(0,img[i].size[0]):
+		for lj in range(0,img[i].size[1]):
+			if img_rd[i][li,lj]>0:
+				if img_rd[i][li,lj]>rimg_pd[img_rx[i][li,lj],img_ry[i][li,lj]]+ep:
+					img_p[i][li,lj]=(255,0,0)
+
+for i in range(1,cim+1):
+	img[i].save(img_name[i])
 
 f2.close()
 

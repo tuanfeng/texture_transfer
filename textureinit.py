@@ -20,7 +20,8 @@ group_count = 0
 
 for line in f2.readlines():
 	linet = line.split()
-	f3.write(line)
+	if not linet[0] == 's':
+		f3.write(line)
 	if linet[0] == 'o':
 		group_count = group_count + 1
 		f3.write('usemtl texture'+"%03d"%group_count+'\n')
@@ -51,7 +52,7 @@ for i in range(1,group_count+1):
 
 f4.close()
 
-img = Image.new('RGB',(1000,1000),"white")
+img = Image.new('RGB',(1000,1000),"green")
 #img = Image.open('checkerboard.jpg')
 
 #img.putdata(my_list)
