@@ -56,7 +56,8 @@ class Renderer(Widget):
         self.canvas['modelview_mat'] = mat
 
     def setup_scene(self):
-        texture = Image('orion.png').texture
+        #texture = Image('orion.png').texture
+        texture = Image('checkerboard.jpg').texture
         Color(1, 1, 1, 1)
         PushMatrix()
         Translate(0, 0, -4)
@@ -64,6 +65,8 @@ class Renderer(Widget):
         self.roty = Rotate(0, 1, 0, 0)
         self.scale = Scale(1)
         m = self.scene.objects.values()[0]
+        print self.scene.mtl
+        print m.vertex_format
         UpdateNormalMatrix()
         self.mesh = Mesh(
             vertices=m.vertices,
