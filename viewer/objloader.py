@@ -1,3 +1,5 @@
+import os
+
 class MeshData(object):
     def __init__(self, **kwargs):
         self.name = kwargs.get("name")
@@ -79,6 +81,7 @@ class ObjFile:
         self.normals = []
         self.texcoords = []
         self.faces = []
+        self.material = {}
 
         self._current_object = None
 
@@ -92,9 +95,9 @@ class ObjFile:
                 self.finish_object()
                 self._current_object = values[1]
             elif values[0] == 'mtllib':
-                self.mtl = MTL(values[1])
+                self.mtl = MTL(os.path.split(filename)[0] + '/' + values[1])
             elif values[0] in ('usemtl', 'usemat'):
-                material = values[1]
+                self.material[self._current_object] = values[1]
             if values[0] == 'v':
                 v = map(float, values[1:4])
                 if swapyz:
@@ -122,7 +125,7 @@ class ObjFile:
                         norms.append(int(w[2]))
                     else:
                         norms.append(-1)
-                self.faces.append((face, norms, texcoords, material))
+                self.faces.append((face, norms, texcoords))#, material))
         self.finish_object()
 
 
