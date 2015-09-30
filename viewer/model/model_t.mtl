@@ -1,63 +1,63 @@
-newmtl texture001
+newmtl texture_mesh7.001_mesh7-geometry
 Ns 0
 Ka 0.000000 0.000000 0.000000
 Kd 0.8 0.8 0.8
 Ks 0.8 0.8 0.8
 d 1
 illum 2
-map_Kd ./texture/texture001.png
+map_Kd ./texture/texture_mesh7.001_mesh7-geometry.png
 
-newmtl texture002
+newmtl texture_mesh4.001_mesh4-geometry
 Ns 0
 Ka 0.000000 0.000000 0.000000
 Kd 0.8 0.8 0.8
 Ks 0.8 0.8 0.8
 d 1
 illum 2
-map_Kd ./texture/texture002.png
+map_Kd ./texture/texture_mesh4.001_mesh4-geometry.png
 
-newmtl texture003
+newmtl texture_mesh1.001_mesh1-geometry
 Ns 0
 Ka 0.000000 0.000000 0.000000
 Kd 0.8 0.8 0.8
 Ks 0.8 0.8 0.8
 d 1
 illum 2
-map_Kd ./texture/texture003.png
+map_Kd ./texture/texture_mesh1.001_mesh1-geometry.png
 
-newmtl texture004
+newmtl texture_mesh6.001_mesh6-geometry
 Ns 0
 Ka 0.000000 0.000000 0.000000
 Kd 0.8 0.8 0.8
 Ks 0.8 0.8 0.8
 d 1
 illum 2
-map_Kd ./texture/texture004.png
+map_Kd ./texture/texture_mesh6.001_mesh6-geometry.png
 
-newmtl texture005
+newmtl texture_mesh2.001_mesh2-geometry
 Ns 0
 Ka 0.000000 0.000000 0.000000
 Kd 0.8 0.8 0.8
 Ks 0.8 0.8 0.8
 d 1
 illum 2
-map_Kd ./texture/texture005.png
+map_Kd ./texture/texture_mesh2.001_mesh2-geometry.png
 
-newmtl texture006
+newmtl texture_mesh3.001_mesh3-geometry
 Ns 0
 Ka 0.000000 0.000000 0.000000
 Kd 0.8 0.8 0.8
 Ks 0.8 0.8 0.8
 d 1
 illum 2
-map_Kd ./texture/texture006.png
+map_Kd ./texture/texture_mesh3.001_mesh3-geometry.png
 
-newmtl texture007
+newmtl texture_mesh5.001_mesh5-geometry
 Ns 0
 Ka 0.000000 0.000000 0.000000
 Kd 0.8 0.8 0.8
 Ks 0.8 0.8 0.8
 d 1
 illum 2
-map_Kd ./texture/texture007.png
+map_Kd ./texture/texture_mesh5.001_mesh5-geometry.png
 

@@ -11,6 +11,8 @@ obj_name = os.path.splitext(os.path.basename(output_file))[0]
 
 mtl_file = obj_name+'.mtl'
 
+mesh_name ={}
+
 f2 = open(input_file,'r')
 f3 = open(output_file,'w')
 
@@ -24,7 +26,8 @@ for line in f2.readlines():
 		f3.write(line)
 	if linet[0] == 'o':
 		group_count = group_count + 1
-		f3.write('usemtl texture'+"%03d"%group_count+'\n')
+		mesh_name[group_count] = linet[1]
+		f3.write('usemtl texture_'+linet[1]+'\n')
 	if linet[0] == 's':
 		f3.write('s off\n')
 
@@ -40,14 +43,14 @@ if not os.path.exists(newpath): os.makedirs(newpath)
 f4 = open(mtl_file,'w')
 
 for i in range(1,group_count+1):
-	f4.write('newmtl texture'+"%03d"%i+'\n')
+	f4.write('newmtl texture_'+mesh_name[i]+'\n')
 	f4.write('Ns 0\n')
 	f4.write('Ka 0.000000 0.000000 0.000000\n')
 	f4.write('Kd 0.8 0.8 0.8\n')
 	f4.write('Ks 0.8 0.8 0.8\n')
 	f4.write('d 1\n')
 	f4.write('illum 2\n')
-	f4.write('map_Kd ./texture/texture'+"%03d"%i+'.png\n')
+	f4.write('map_Kd ./texture/texture_'+mesh_name[i]+'.png\n')
 	f4.write('\n')
 
 f4.close()
@@ -57,7 +60,7 @@ img = Image.new('RGB',(1000,1000),"green")
 
 #img.putdata(my_list)
 for i in range(1,group_count+1):
-	img.save('./texture/texture'+"%03d"%i+'.png')
+	img.save('./texture/texture_'+mesh_name[i]+'.png')
 
 
 
