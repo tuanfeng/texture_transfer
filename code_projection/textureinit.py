@@ -5,11 +5,11 @@ import os
 from PIL import Image
 
 input_file = sys.argv[1]
-
 output_file = sys.argv[2]
+
 obj_name = os.path.splitext(os.path.basename(output_file))[0]
 
-mtl_file = obj_name+'.mtl'
+mtl_file = obj_name + '.mtl'
 
 mesh_name ={}
 
@@ -37,10 +37,10 @@ f3.close()
 #os.remove(input_file)
 #os.rename(output_file, input_file)
 
-newpath = './texture/' 
+newpath = os.path.dirname(output_file)+'/texture/' 
 if not os.path.exists(newpath): os.makedirs(newpath)
 
-f4 = open(mtl_file,'w')
+f4 = open(os.path.dirname(output_file) + '/' + mtl_file,'w')
 
 for i in range(1,group_count+1):
 	f4.write('newmtl texture_'+mesh_name[i]+'\n')
@@ -60,7 +60,7 @@ img = Image.new('RGB',(1000,1000),"green")
 
 #img.putdata(my_list)
 for i in range(1,group_count+1):
-	img.save('./texture/texture_'+mesh_name[i]+'.png')
+	img.save(newpath + 'texture_'+mesh_name[i]+'.png')
 
 
 

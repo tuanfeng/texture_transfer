@@ -33,6 +33,7 @@ qw=float(lfve[0].split()[3])
 qx=float(lfve[0].split()[4])
 qy=float(lfve[0].split()[5])
 qz=float(lfve[0].split()[6])
+foc=float(lfve[0].split()[7])
 fve.close()
 
 #print cx,cy,cz
@@ -51,7 +52,7 @@ R33=qz*qz+qw*qw-qx*qx-qy*qy
 #print R21,R22,R23
 #print R31,R32,R33
 
-focal = float(rimg.size[0])*35.0/32.0
+focal = float(rimg.size[0])*foc/32.0
 
 
 #v3d_x=0.1
@@ -103,7 +104,6 @@ f1.close()
 
 f2 = open(model_file,'r')
 
-
 arrayv={}
 cv=0
 arrayvt={}
@@ -112,9 +112,9 @@ cvt=0
 img_name={}
 img={}
 img_p={}
-img_rx={}
-img_ry={}
-img_rd={}
+img_rx={} #x location on refimg
+img_ry={} #y location on refimg
+img_rd={} #depth
 
 
 cim=0
@@ -164,7 +164,7 @@ for line in f2.readlines():
 		if img_name == '':
 			print('Error: no material!\n')
 			exit()
-		vit = {}
+		vit = {} #get real texture coordinate location and sort
 		vit[1,1] = (float(arrayvt[fvt[1],1])*float(img_size_x))
 		vit[1,2] = (float(arrayvt[fvt[1],2])*float(img_size_y))
 		vit[2,1] = (float(arrayvt[fvt[2],1])*float(img_size_x))
@@ -190,11 +190,13 @@ for line in f2.readlines():
 		vit_[2,2] = vit[order[1],2]
 		vit_[3,1] = vit[order[2],1]
 		vit_[3,2] = vit[order[2],2]
-		if int(vit_[1,1]) < int(vit_[2,1]):
-			t1x=vit_[2,1]-vit_[1,1]
-			t1y=vit_[2,2]-vit_[1,2]
-			t2x=vit_[3,1]-vit_[1,1]
-			t2y=vit_[3,2]-vit_[1,2]
+
+		t1x=vit_[2,1]-vit_[1,1]
+		t1y=vit_[2,2]-vit_[1,2]
+		t2x=vit_[3,1]-vit_[1,1]
+		t2y=vit_[3,2]-vit_[1,2]
+
+		if int(vit_[1,1]) < int(vit_[2,1]) and t1y*t2x-t1x*t2y != 0:
 			frx=int(vit_[1,1])
 			ftx=int(vit_[2,1])
 			for li in range(frx,ftx+1):
@@ -204,10 +206,10 @@ for line in f2.readlines():
 				q2=vit_[1,2]+(t2y)*p2
 				q1_=int(min(q1,q2))
 				q2_=int(max(q1,q2))
-				if q1_>0:
-					q1_=q1_-1
-				if q2_<img_size_y-1:
-					q2_=q2_+1
+				#if q1_>0:
+				#	q1_=q1_-1
+				#if q2_<img_size_y-1:
+				#	q2_=q2_+1
 				for lj in range(q1_,q2_+1):
 					px = li-vit_[1,1]
 					py = lj-vit_[1,2]
@@ -233,8 +235,24 @@ for line in f2.readlines():
 					ppz=R31*(v3d_x-cx)+R32*(v3d_y-cy)+R33*(v3d_z-cz)
 					pfx=int(rimg.size[0]/2-focal*ppx/ppz)
 					pfy=int(rimg.size[1]/2+focal*ppy/ppz)
+					pfx_=rimg.size[0]/2-focal*ppx/ppz
+					pfy_=rimg.size[1]/2+focal*ppy/ppz
 					if pfx>=0 and pfx<rimg.size[0] and pfy>=0 and pfy<rimg.size[1]:
-						pix = rimg.getpixel((pfx,pfy))
+						if pfx == rimg.size[0]-1 or pfy == rimg.size[1]-1:
+							pix = rimg.getpixel((pfx,pfy))
+						else:
+							d00=(pfx_-pfx)*(pfx_-pfx)+(pfy_-pfy)*(pfy_-pfy)
+							d01=(pfx_-pfx)*(pfx_-pfx)+(pfy_-pfy-1)*(pfy_-pfy-1)
+							d10=(pfx_-pfx-1)*(pfx_-pfx-1)+(pfy_-pfy)*(pfy_-pfy)
+							d11=(pfx_-pfx-1)*(pfx_-pfx-1)+(pfy_-pfy-1)*(pfy_-pfy-1)
+							w00=1/d00/(1/d00+1/d10+1/d01+1/d11)
+							w01=1/d01/(1/d00+1/d10+1/d01+1/d11)
+							w10=1/d10/(1/d00+1/d10+1/d01+1/d11)
+							w11=1/d11/(1/d00+1/d10+1/d01+1/d11)
+							pix0 = w00*rimg.getpixel((pfx,pfy))[0]+w10*rimg.getpixel((pfx+1,pfy))[0]+w01*rimg.getpixel((pfx,pfy+1))[0]+w11*rimg.getpixel((pfx+1,pfy+1))[0]
+							pix1 = w00*rimg.getpixel((pfx,pfy))[1]+w10*rimg.getpixel((pfx+1,pfy))[1]+w01*rimg.getpixel((pfx,pfy+1))[1]+w11*rimg.getpixel((pfx+1,pfy+1))[1]
+							pix2 = w00*rimg.getpixel((pfx,pfy))[2]+w10*rimg.getpixel((pfx+1,pfy))[2]+w01*rimg.getpixel((pfx,pfy+1))[2]+w11*rimg.getpixel((pfx+1,pfy+1))[2]
+							pix = (int(pix0),int(pix1),int(pix2))
 						if li>=0 and li<img_size_x and lj>=0 and lj<img_size_y:
 							dpt=(v3d_x-cx)*(v3d_x-cx)+(v3d_y-cy)*(v3d_y-cy)+(v3d_z-cz)*(v3d_z-cz)
 							if rimg_pd[pfx,pfy]>dpt:
@@ -243,11 +261,13 @@ for line in f2.readlines():
 							img_rd[cim][li,img_size_y-lj-1]=dpt
 							img_rx[cim][li,img_size_y-lj-1]=pfx
 							img_ry[cim][li,img_size_y-lj-1]=pfy
-		if int(vit_[2,1]) < int(vit_[3,1]):
-			t1x=vit_[2,1]-vit_[3,1]
-			t1y=vit_[2,2]-vit_[3,2]
-			t2x=vit_[1,1]-vit_[3,1]
-			t2y=vit_[1,2]-vit_[3,2]
+
+		t1x=vit_[2,1]-vit_[3,1]
+		t1y=vit_[2,2]-vit_[3,2]
+		t2x=vit_[1,1]-vit_[3,1]
+		t2y=vit_[1,2]-vit_[3,2]
+
+		if int(vit_[2,1]) < int(vit_[3,1]) and t1y*t2x-t1x*t2y != 0:
 			frx=int(vit_[2,1])
 			ftx=int(vit_[3,1])
 			for li in range(frx,ftx+1):
@@ -257,10 +277,10 @@ for line in f2.readlines():
 				q2=vit_[3,2]+(t2y)*p2
 				q1_=int(min(q1,q2))
 				q2_=int(max(q1,q2))
-				if q1_>0:
-					q1_=q1_-1
-				if q2_<img_size_y-1:
-					q2_=q2_+1
+				#if q1_>0:
+				#	q1_=q1_-1
+				#if q2_<img_size_y-1:
+				#	q2_=q2_+1
 				for lj in range(q1_,q2_+1):
 					px = li-vit_[3,1]
 					py = lj-vit_[3,2]
@@ -286,8 +306,24 @@ for line in f2.readlines():
 					ppz=R31*(v3d_x-cx)+R32*(v3d_y-cy)+R33*(v3d_z-cz)
 					pfx=int(rimg.size[0]/2-focal*ppx/ppz)
 					pfy=int(rimg.size[1]/2+focal*ppy/ppz)
+					pfx_=rimg.size[0]/2-focal*ppx/ppz
+					pfy_=rimg.size[1]/2+focal*ppy/ppz
 					if pfx>=0 and pfx<rimg.size[0] and pfy>=0 and pfy<rimg.size[1]:
-						pix = rimg.getpixel((pfx,pfy))
+						if pfx == rimg.size[0]-1 or pfy == rimg.size[1]-1:
+							pix = rimg.getpixel((pfx,pfy))
+						else:
+							d00=(pfx_-pfx)*(pfx_-pfx)+(pfy_-pfy)*(pfy_-pfy)
+							d01=(pfx_-pfx)*(pfx_-pfx)+(pfy_-pfy-1)*(pfy_-pfy-1)
+							d10=(pfx_-pfx-1)*(pfx_-pfx-1)+(pfy_-pfy)*(pfy_-pfy)
+							d11=(pfx_-pfx-1)*(pfx_-pfx-1)+(pfy_-pfy-1)*(pfy_-pfy-1)
+							w00=1/d00/(1/d00+1/d10+1/d01+1/d11)
+							w01=1/d01/(1/d00+1/d10+1/d01+1/d11)
+							w10=1/d10/(1/d00+1/d10+1/d01+1/d11)
+							w11=1/d11/(1/d00+1/d10+1/d01+1/d11)
+							pix0 = w00*rimg.getpixel((pfx,pfy))[0]+w10*rimg.getpixel((pfx+1,pfy))[0]+w01*rimg.getpixel((pfx,pfy+1))[0]+w11*rimg.getpixel((pfx+1,pfy+1))[0]
+							pix1 = w00*rimg.getpixel((pfx,pfy))[1]+w10*rimg.getpixel((pfx+1,pfy))[1]+w01*rimg.getpixel((pfx,pfy+1))[1]+w11*rimg.getpixel((pfx+1,pfy+1))[1]
+							pix2 = w00*rimg.getpixel((pfx,pfy))[2]+w10*rimg.getpixel((pfx+1,pfy))[2]+w01*rimg.getpixel((pfx,pfy+1))[2]+w11*rimg.getpixel((pfx+1,pfy+1))[2]
+							pix = (int(pix0),int(pix1),int(pix2))
 						if li>=0 and li<img_size_x and lj>=0 and lj<img_size_y:
 							dpt=(v3d_x-cx)*(v3d_x-cx)+(v3d_y-cy)*(v3d_y-cy)+(v3d_z-cz)*(v3d_z-cz)
 							if rimg_pd[pfx,pfy]>dpt:
@@ -321,15 +357,27 @@ for i in range(dimg.size[0]):    # for every pixel:
         if rimg_pd[i,j]>1000:
         	pixels[i,j] = (255,0,0)
 
-dimg.show()
+#dimg.show()
+dimg.save(model_file[:-(4+len(obj_name))] + 'depth.png')
 
 
-ep = 0.01
+ep = 0.02
 for i in range(1,cim+1):
 	for li in range(0,img[i].size[0]):
 		for lj in range(0,img[i].size[1]):
 			if img_rd[i][li,lj]>0:
-				if img_rd[i][li,lj]>rimg_pd[img_rx[i][li,lj],img_ry[i][li,lj]]+ep:
+				px=img_rx[i][li,lj]
+				py=img_ry[i][li,lj]
+				if px<img_size_x-1:
+					px_=px+1
+				else:
+					px_=px
+				if py<img_size_y-1:
+					py_=py+1
+				else:
+					py_=py
+				dpt=max(rimg_pd[px,py],rimg_pd[px_,py],rimg_pd[px,py_],rimg_pd[px_,py_])
+				if img_rd[i][li,lj]>dpt+ep:
 					img_p[i][li,lj]=(255,0,0)
 
 for i in range(1,cim+1):

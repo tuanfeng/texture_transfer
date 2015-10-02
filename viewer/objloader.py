@@ -86,6 +86,7 @@ class ObjFile:
         self._current_object = None
 
         material = None
+        print filename
         for line in open(filename, "r"):
             if line.startswith('#'): continue
             if line.startswith('s'): continue

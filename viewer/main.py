@@ -39,7 +39,7 @@ from kivy.cache import Cache
 from PIL import Image as pilimage
 
 global is_retina_screen
-is_retina_screen=False
+is_retina_screen=True
 
 
 class rimgv(FloatLayout):
@@ -66,6 +66,7 @@ class meshv(FloatLayout):
         #self.canvas=InstructionGroup()
         self.canvas = RenderContext(compute_normal_mat=True)
         self.canvas.shader.source = resource_find('simple.glsl')
+        print sys.argv[1]
         self.scene = ObjFile(resource_find(sys.argv[1]))
         #print self.scene.mtl
         super(meshv, self).__init__(**kwargs)

@@ -3,260 +3,184 @@ read blend: /Users/tuanfeng/Documents/ResearchWork/project_2/code/texture_transf
 PyContext 'window' not found
 PyContext 'window' not found
 PyContext 'area' not found
-Fra:1 Mem:7.28M (0.00M, Peak 7.28M) | Preparing Scene data
-Fra:1 Mem:7.65M (0.00M, Peak 7.66M) | Preparing Scene data
-Fra:1 Mem:7.65M (0.00M, Peak 7.66M) | Creating Shadowbuffers
-Fra:1 Mem:7.65M (0.00M, Peak 7.66M) | Creating Environment maps
-Fra:1 Mem:7.65M (0.00M, Peak 7.66M) | Caching Point Densities
-Fra:1 Mem:7.65M (0.00M, Peak 7.66M) Sce: uv_temp Ve:1200 Fa:800 La:0
-Fra:1 Mem:7.65M (0.00M, Peak 7.66M) | Loading voxel datasets
-Fra:1 Mem:7.65M (0.00M, Peak 7.66M) Sce: uv_temp Ve:1200 Fa:800 La:0
-Fra:1 Mem:7.65M (0.00M, Peak 7.66M) Sce: uv_temp Ve:1200 Fa:800 La:0
-Fra:1 Mem:7.65M (0.00M, Peak 7.66M) Sce: uv_temp Ve:1200 Fa:800 La:0
-Fra:1 Mem:51.12M (0.00M, Peak 64.13M) | uv_temp, Part 1-16
-Fra:1 Mem:49.57M (0.00M, Peak 64.13M) | uv_temp, Part 2-16
-Fra:1 Mem:48.40M (0.00M, Peak 64.13M) | uv_temp, Part 4-16
-Fra:1 Mem:43.51M (0.00M, Peak 64.13M) | uv_temp, Part 3-16
-Fra:1 Mem:60.90M (0.00M, Peak 69.98M) | uv_temp, Part 5-16
-Fra:1 Mem:50.59M (0.00M, Peak 69.98M) | uv_temp, Part 7-16
-Fra:1 Mem:48.41M (0.00M, Peak 69.98M) | uv_temp, Part 8-16
-Fra:1 Mem:50.73M (0.00M, Peak 69.98M) | uv_temp, Part 6-16
-Fra:1 Mem:55.87M (0.00M, Peak 69.98M) | uv_temp, Part 9-16
-Fra:1 Mem:57.82M (0.00M, Peak 69.98M) | uv_temp, Part 12-16
-Fra:1 Mem:52.02M (0.00M, Peak 69.98M) | uv_temp, Part 10-16
-Fra:1 Mem:46.60M (0.00M, Peak 69.98M) | uv_temp, Part 11-16
-Fra:1 Mem:55.87M (0.00M, Peak 69.98M) | uv_temp, Part 13-16
-Fra:1 Mem:40.93M (0.00M, Peak 69.98M) | uv_temp, Part 14-16
-Fra:1 Mem:38.61M (0.00M, Peak 69.98M) | uv_temp, Part 16-16
-Fra:1 Mem:29.98M (0.00M, Peak 69.98M) | uv_temp, Part 15-16
-Fra:1 Mem:27.28M (0.00M, Peak 69.98M) Sce: uv_temp Ve:1200 Fa:800 La:0
-Saved: ./uv_layout/uv_mesh1.001_mesh1-geometry.png Time: 00:00.48 (Saving: 00:00.15)
+Fra:1 Mem:6.47M (0.00M, Peak 6.47M) | Preparing Scene data
+Fra:1 Mem:6.76M (0.00M, Peak 6.77M) | Preparing Scene data
+Fra:1 Mem:6.76M (0.00M, Peak 6.77M) | Creating Shadowbuffers
+Fra:1 Mem:6.76M (0.00M, Peak 6.77M) | Creating Environment maps
+Fra:1 Mem:6.76M (0.00M, Peak 6.77M) | Caching Point Densities
+Fra:1 Mem:6.76M (0.00M, Peak 6.77M) Sce: uv_temp Ve:240 Fa:160 La:0
+Fra:1 Mem:6.76M (0.00M, Peak 6.77M) | Loading voxel datasets
+Fra:1 Mem:6.76M (0.00M, Peak 6.77M) Sce: uv_temp Ve:240 Fa:160 La:0
+Fra:1 Mem:6.77M (0.00M, Peak 6.77M) Sce: uv_temp Ve:240 Fa:160 La:0
+Fra:1 Mem:6.77M (0.00M, Peak 6.77M) Sce: uv_temp Ve:240 Fa:160 La:0
+Fra:1 Mem:49.97M (0.00M, Peak 68.59M) | uv_temp, Part 1-16
+Fra:1 Mem:48.29M (0.00M, Peak 68.59M) | uv_temp, Part 3-16
+Fra:1 Mem:44.44M (0.00M, Peak 68.59M) | uv_temp, Part 4-16
+Fra:1 Mem:41.46M (0.00M, Peak 68.59M) | uv_temp, Part 2-16
+Fra:1 Mem:48.68M (0.00M, Peak 68.59M) | uv_temp, Part 5-16
+Fra:1 Mem:50.36M (0.00M, Peak 68.59M) | uv_temp, Part 6-16
+Fra:1 Mem:39.52M (0.00M, Peak 68.59M) | uv_temp, Part 7-16
+Fra:1 Mem:46.24M (0.00M, Peak 68.59M) | uv_temp, Part 8-16
+Fra:1 Mem:54.61M (0.00M, Peak 68.59M) | uv_temp, Part 12-16
+Fra:1 Mem:55.78M (0.00M, Peak 68.59M) | uv_temp, Part 11-16
+Fra:1 Mem:50.37M (0.00M, Peak 68.59M) | uv_temp, Part 10-16
+Fra:1 Mem:50.24M (0.00M, Peak 68.59M) | uv_temp, Part 9-16
+Fra:1 Mem:54.61M (0.00M, Peak 68.59M) | uv_temp, Part 16-16
+Fra:1 Mem:46.10M (0.00M, Peak 68.59M) | uv_temp, Part 13-16
+Fra:1 Mem:37.60M (0.00M, Peak 68.59M) | uv_temp, Part 14-16
+Fra:1 Mem:29.09M (0.00M, Peak 68.59M) | uv_temp, Part 15-16
+Fra:1 Mem:26.47M (0.00M, Peak 68.59M) Sce: uv_temp Ve:240 Fa:160 La:0
+Saved: ./model/uv_layout/uv_mesh1_mesh1-geometry.001_mesh1_mesh1-geometry.003.png Time: 00:00.48 (Saving: 00:00.14)
 
 PyContext 'window' not found
 PyContext 'region' not found
 PyContext 'window' not found
 PyContext 'window' not found
 PyContext 'area' not found
-Fra:1 Mem:8.53M (0.00M, Peak 8.57M) | Preparing Scene data
-Fra:1 Mem:8.53M (0.00M, Peak 8.57M) | Creating Shadowbuffers
-Fra:1 Mem:8.53M (0.00M, Peak 8.57M) | Creating Environment maps
-Fra:1 Mem:8.53M (0.00M, Peak 8.57M) | Caching Point Densities
-Fra:1 Mem:8.53M (0.00M, Peak 8.57M) Sce: uv_temp Ve:7200 Fa:4800 La:0
-Fra:1 Mem:8.53M (0.00M, Peak 8.57M) | Loading voxel datasets
-Fra:1 Mem:8.53M (0.00M, Peak 8.57M) Sce: uv_temp Ve:7200 Fa:4800 La:0
-Fra:1 Mem:8.53M (0.00M, Peak 8.57M) Sce: uv_temp Ve:7200 Fa:4800 La:0
-Fra:1 Mem:8.53M (0.00M, Peak 8.57M) Sce: uv_temp Ve:7200 Fa:4800 La:0
-Fra:1 Mem:52.86M (0.00M, Peak 71.35M) | uv_temp, Part 1-16
-Fra:1 Mem:50.28M (0.00M, Peak 71.35M) | uv_temp, Part 4-16
-Fra:1 Mem:45.02M (0.00M, Peak 71.35M) | uv_temp, Part 3-16
-Fra:1 Mem:43.73M (0.00M, Peak 71.35M) | uv_temp, Part 2-16
-Fra:1 Mem:62.40M (0.00M, Peak 71.35M) | uv_temp, Part 6-16
-Fra:1 Mem:52.99M (0.00M, Peak 71.35M) | uv_temp, Part 5-16
-Fra:1 Mem:48.75M (0.00M, Peak 71.35M) | uv_temp, Part 7-16
-Fra:1 Mem:50.96M (0.00M, Peak 71.35M) | uv_temp, Part 8-16
-Fra:1 Mem:62.15M (0.00M, Peak 71.35M) | uv_temp, Part 9-16
-Fra:1 Mem:62.15M (0.00M, Peak 71.35M) | uv_temp, Part 12-16
-Fra:1 Mem:55.06M (0.00M, Peak 71.35M) | uv_temp, Part 10-16
-Fra:1 Mem:54.54M (0.00M, Peak 71.35M) | uv_temp, Part 11-16
-Fra:1 Mem:53.40M (0.00M, Peak 71.35M) | uv_temp, Part 13-16
-Fra:1 Mem:48.49M (0.00M, Peak 71.35M) | uv_temp, Part 15-16
-Fra:1 Mem:34.07M (0.00M, Peak 71.35M) | uv_temp, Part 14-16
-Fra:1 Mem:30.85M (0.00M, Peak 71.35M) | uv_temp, Part 16-16
-Fra:1 Mem:27.59M (0.00M, Peak 71.35M) Sce: uv_temp Ve:7200 Fa:4800 La:0
-Saved: ./uv_layout/uv_mesh2.001_mesh2-geometry.png Time: 00:00.46 (Saving: 00:00.16)
+Fra:1 Mem:7.13M (0.00M, Peak 7.15M) | Preparing Scene data
+Fra:1 Mem:7.13M (0.00M, Peak 7.15M) | Creating Shadowbuffers
+Fra:1 Mem:7.13M (0.00M, Peak 7.15M) | Creating Environment maps
+Fra:1 Mem:7.13M (0.00M, Peak 7.15M) | Caching Point Densities
+Fra:1 Mem:7.13M (0.00M, Peak 7.15M) Sce: uv_temp Ve:3054 Fa:2035 La:0
+Fra:1 Mem:7.13M (0.00M, Peak 7.15M) | Loading voxel datasets
+Fra:1 Mem:7.13M (0.00M, Peak 7.15M) Sce: uv_temp Ve:3054 Fa:2035 La:0
+Fra:1 Mem:7.13M (0.00M, Peak 7.15M) Sce: uv_temp Ve:3054 Fa:2035 La:0
+Fra:1 Mem:7.13M (0.00M, Peak 7.15M) Sce: uv_temp Ve:3054 Fa:2035 La:0
+Fra:1 Mem:57.67M (0.00M, Peak 63.98M) | uv_temp, Part 3-16
+Fra:1 Mem:62.05M (0.00M, Peak 63.98M) | uv_temp, Part 2-16
+Fra:1 Mem:59.73M (0.00M, Peak 63.98M) | uv_temp, Part 4-16
+Fra:1 Mem:54.16M (0.00M, Peak 68.38M) | uv_temp, Part 1-16
+Fra:1 Mem:66.56M (0.00M, Peak 68.38M) | uv_temp, Part 6-16
+Fra:1 Mem:59.32M (0.00M, Peak 68.38M) | uv_temp, Part 9-16
+Fra:1 Mem:63.08M (0.00M, Peak 68.38M) | uv_temp, Part 7-16
+Fra:1 Mem:52.00M (0.00M, Peak 68.38M) | uv_temp, Part 5-16
+Fra:1 Mem:51.61M (0.00M, Peak 68.38M) | uv_temp, Part 11-16
+Fra:1 Mem:53.70M (0.00M, Peak 68.38M) | uv_temp, Part 8-16
+Fra:1 Mem:46.20M (0.00M, Peak 68.38M) | uv_temp, Part 12-16
+Fra:1 Mem:51.87M (0.00M, Peak 68.38M) | uv_temp, Part 10-16
+Fra:1 Mem:48.00M (0.00M, Peak 68.38M) | uv_temp, Part 15-16
+Fra:1 Mem:47.22M (0.00M, Peak 68.38M) | uv_temp, Part 16-16
+Fra:1 Mem:38.46M (0.00M, Peak 68.38M) | uv_temp, Part 13-16
+Fra:1 Mem:29.45M (0.00M, Peak 68.38M) | uv_temp, Part 14-16
+Fra:1 Mem:26.61M (0.00M, Peak 68.38M) Sce: uv_temp Ve:3054 Fa:2035 La:0
+Saved: ./model/uv_layout/uv_mesh1_mesh1-geometry.002_mesh1_mesh1-geometry.020.png Time: 00:00.38 (Saving: 00:00.13)
 
 PyContext 'window' not found
 PyContext 'region' not found
 PyContext 'window' not found
 PyContext 'window' not found
 PyContext 'area' not found
-Fra:1 Mem:7.67M (0.00M, Peak 7.68M) | Preparing Scene data
-Fra:1 Mem:8.52M (0.00M, Peak 8.56M) | Preparing Scene data
-Fra:1 Mem:8.52M (0.00M, Peak 8.56M) | Creating Shadowbuffers
-Fra:1 Mem:8.52M (0.00M, Peak 8.56M) | Creating Environment maps
-Fra:1 Mem:8.52M (0.00M, Peak 8.56M) | Caching Point Densities
-Fra:1 Mem:8.52M (0.00M, Peak 8.56M) Sce: uv_temp Ve:6456 Fa:4304 La:0
-Fra:1 Mem:8.52M (0.00M, Peak 8.56M) | Loading voxel datasets
-Fra:1 Mem:8.52M (0.00M, Peak 8.56M) Sce: uv_temp Ve:6456 Fa:4304 La:0
-Fra:1 Mem:8.53M (0.00M, Peak 8.56M) Sce: uv_temp Ve:6456 Fa:4304 La:0
-Fra:1 Mem:8.53M (0.00M, Peak 8.56M) Sce: uv_temp Ve:6456 Fa:4304 La:0
-Fra:1 Mem:57.25M (0.00M, Peak 71.48M) | uv_temp, Part 4-16
-Fra:1 Mem:51.44M (0.00M, Peak 71.48M) | uv_temp, Part 2-16
-Fra:1 Mem:53.27M (0.00M, Peak 71.48M) | uv_temp, Part 3-16
-Fra:1 Mem:56.77M (0.00M, Peak 71.48M) | uv_temp, Part 1-16
-Fra:1 Mem:57.12M (0.00M, Peak 71.48M) | uv_temp, Part 8-16
-Fra:1 Mem:51.97M (0.00M, Peak 71.48M) | uv_temp, Part 6-16
-Fra:1 Mem:49.80M (0.00M, Peak 71.48M) | uv_temp, Part 7-16
-Fra:1 Mem:46.29M (0.00M, Peak 71.48M) | uv_temp, Part 10-16
-Fra:1 Mem:39.59M (0.00M, Peak 71.48M) | uv_temp, Part 5-16
-Fra:1 Mem:58.03M (0.00M, Peak 71.48M) | uv_temp, Part 11-16
-Fra:1 Mem:51.45M (0.00M, Peak 71.48M) | uv_temp, Part 12-16
-Fra:1 Mem:39.33M (0.00M, Peak 71.48M) | uv_temp, Part 9-16
-Fra:1 Mem:40.49M (0.00M, Peak 71.48M) | uv_temp, Part 13-16
-Fra:1 Mem:52.51M (0.00M, Peak 71.48M) | uv_temp, Part 16-16
-Fra:1 Mem:39.61M (0.00M, Peak 71.48M) | uv_temp, Part 14-16
-Fra:1 Mem:30.85M (0.00M, Peak 71.48M) | uv_temp, Part 15-16
-Fra:1 Mem:27.67M (0.00M, Peak 71.48M) Sce: uv_temp Ve:6456 Fa:4304 La:0
-Saved: ./uv_layout/uv_mesh3.001_mesh3-geometry.png Time: 00:00.44 (Saving: 00:00.16)
+Fra:1 Mem:6.83M (0.00M, Peak 6.83M) | Preparing Scene data
+Fra:1 Mem:6.83M (0.00M, Peak 6.83M) | Creating Shadowbuffers
+Fra:1 Mem:6.83M (0.00M, Peak 6.83M) | Creating Environment maps
+Fra:1 Mem:6.83M (0.00M, Peak 6.83M) | Caching Point Densities
+Fra:1 Mem:6.83M (0.00M, Peak 6.83M) Sce: uv_temp Ve:390 Fa:259 La:0
+Fra:1 Mem:6.83M (0.00M, Peak 6.83M) | Loading voxel datasets
+Fra:1 Mem:6.83M (0.00M, Peak 6.83M) Sce: uv_temp Ve:390 Fa:259 La:0
+Fra:1 Mem:6.83M (0.00M, Peak 6.83M) Sce: uv_temp Ve:390 Fa:259 La:0
+Fra:1 Mem:6.83M (0.00M, Peak 6.83M) Sce: uv_temp Ve:390 Fa:259 La:0
+Fra:1 Mem:50.28M (0.00M, Peak 66.96M) | uv_temp, Part 1-16
+Fra:1 Mem:49.90M (0.00M, Peak 66.96M) | uv_temp, Part 3-16
+Fra:1 Mem:56.10M (0.00M, Peak 66.96M) | uv_temp, Part 2-16
+Fra:1 Mem:65.16M (0.00M, Peak 66.96M) | uv_temp, Part 4-16
+Fra:1 Mem:50.41M (0.00M, Peak 66.96M) | uv_temp, Part 7-16
+Fra:1 Mem:48.47M (0.00M, Peak 66.96M) | uv_temp, Part 5-16
+Fra:1 Mem:54.81M (0.00M, Peak 66.96M) | uv_temp, Part 6-16
+Fra:1 Mem:61.90M (0.00M, Peak 67.33M) | uv_temp, Part 11-16
+Fra:1 Mem:59.58M (0.00M, Peak 67.33M) | uv_temp, Part 12-16
+Fra:1 Mem:61.91M (0.00M, Peak 67.33M) | uv_temp, Part 8-16
+Fra:1 Mem:58.66M (0.00M, Peak 67.33M) | uv_temp, Part 9-16
+Fra:1 Mem:59.95M (0.00M, Peak 67.33M) | uv_temp, Part 15-16
+Fra:1 Mem:54.80M (0.00M, Peak 67.33M) | uv_temp, Part 10-16
+Fra:1 Mem:46.29M (0.00M, Peak 67.33M) | uv_temp, Part 13-16
+Fra:1 Mem:37.66M (0.00M, Peak 67.33M) | uv_temp, Part 14-16
+Fra:1 Mem:29.15M (0.00M, Peak 67.33M) | uv_temp, Part 16-16
+Fra:1 Mem:26.53M (0.00M, Peak 67.33M) Sce: uv_temp Ve:390 Fa:259 La:0
+Saved: ./model/uv_layout/uv_mesh1_mesh1-geometry.003_mesh1_mesh1-geometry.008.png Time: 00:00.40 (Saving: 00:00.12)
 
 PyContext 'window' not found
 PyContext 'region' not found
 PyContext 'window' not found
 PyContext 'window' not found
 PyContext 'area' not found
-Fra:1 Mem:8.53M (0.00M, Peak 8.57M) | Preparing Scene data
-Fra:1 Mem:8.53M (0.00M, Peak 8.57M) | Creating Shadowbuffers
-Fra:1 Mem:8.53M (0.00M, Peak 8.57M) | Creating Environment maps
-Fra:1 Mem:8.53M (0.00M, Peak 8.57M) | Caching Point Densities
-Fra:1 Mem:8.53M (0.00M, Peak 8.57M) Sce: uv_temp Ve:5688 Fa:3792 La:0
-Fra:1 Mem:8.53M (0.00M, Peak 8.57M) | Loading voxel datasets
-Fra:1 Mem:8.53M (0.00M, Peak 8.57M) Sce: uv_temp Ve:5688 Fa:3792 La:0
-Fra:1 Mem:8.53M (0.00M, Peak 8.57M) Sce: uv_temp Ve:5688 Fa:3792 La:0
-Fra:1 Mem:8.53M (0.00M, Peak 8.57M) Sce: uv_temp Ve:5688 Fa:3792 La:0
-Fra:1 Mem:60.21M (0.00M, Peak 69.41M) | uv_temp, Part 4-16
-Fra:1 Mem:57.25M (0.00M, Peak 69.41M) | uv_temp, Part 3-16
-Fra:1 Mem:52.49M (0.00M, Peak 69.41M) | uv_temp, Part 2-16
-Fra:1 Mem:58.56M (0.00M, Peak 69.41M) | uv_temp, Part 1-16
-Fra:1 Mem:61.03M (0.00M, Peak 69.41M) | uv_temp, Part 5-16
-Fra:1 Mem:60.48M (0.00M, Peak 69.41M) | uv_temp, Part 6-16
-Fra:1 Mem:61.38M (0.00M, Peak 69.41M) | uv_temp, Part 7-16
-Fra:1 Mem:52.76M (0.00M, Peak 69.41M) | uv_temp, Part 8-16
-Fra:1 Mem:65.80M (0.00M, Peak 69.41M) | uv_temp, Part 9-16
-Fra:1 Mem:64.11M (0.00M, Peak 69.41M) | uv_temp, Part 10-16
-Fra:1 Mem:59.83M (0.00M, Peak 69.41M) | uv_temp, Part 11-16
-Fra:1 Mem:62.43M (0.00M, Peak 69.41M) | uv_temp, Part 12-16
-Fra:1 Mem:58.95M (0.00M, Peak 69.41M) | uv_temp, Part 13-16
-Fra:1 Mem:43.86M (0.00M, Peak 69.41M) | uv_temp, Part 15-16
-Fra:1 Mem:39.62M (0.00M, Peak 69.41M) | uv_temp, Part 14-16
-Fra:1 Mem:30.86M (0.00M, Peak 69.41M) | uv_temp, Part 16-16
-Fra:1 Mem:27.74M (0.00M, Peak 69.41M) Sce: uv_temp Ve:5688 Fa:3792 La:0
-Saved: ./uv_layout/uv_mesh4.001_mesh4-geometry.png Time: 00:00.46 (Saving: 00:00.16)
+Fra:1 Mem:6.55M (0.00M, Peak 6.55M) | Preparing Scene data
+Fra:1 Mem:6.89M (0.00M, Peak 6.89M) | Preparing Scene data
+Fra:1 Mem:6.89M (0.00M, Peak 6.89M) | Creating Shadowbuffers
+Fra:1 Mem:6.89M (0.00M, Peak 6.89M) | Creating Environment maps
+Fra:1 Mem:6.89M (0.00M, Peak 6.89M) | Caching Point Densities
+Fra:1 Mem:6.89M (0.00M, Peak 6.89M) Sce: uv_temp Ve:606 Fa:403 La:0
+Fra:1 Mem:6.89M (0.00M, Peak 6.89M) | Loading voxel datasets
+Fra:1 Mem:6.89M (0.00M, Peak 6.89M) Sce: uv_temp Ve:606 Fa:403 La:0
+Fra:1 Mem:6.89M (0.00M, Peak 6.89M) Sce: uv_temp Ve:606 Fa:403 La:0
+Fra:1 Mem:6.89M (0.00M, Peak 6.89M) Sce: uv_temp Ve:606 Fa:403 La:0
+Fra:1 Mem:60.14M (0.00M, Peak 68.05M) | uv_temp, Part 3-16
+Fra:1 Mem:59.64M (0.00M, Peak 68.05M) | uv_temp, Part 4-16
+Fra:1 Mem:51.76M (0.00M, Peak 68.05M) | uv_temp, Part 2-16
+Fra:1 Mem:54.35M (0.00M, Peak 68.05M) | uv_temp, Part 1-16
+Fra:1 Mem:60.16M (0.00M, Peak 68.05M) | uv_temp, Part 5-16
+Fra:1 Mem:59.77M (0.00M, Peak 68.05M) | uv_temp, Part 6-16
+Fra:1 Mem:61.06M (0.00M, Peak 68.05M) | uv_temp, Part 8-16
+Fra:1 Mem:56.15M (0.00M, Peak 68.05M) | uv_temp, Part 11-16
+Fra:1 Mem:54.86M (0.00M, Peak 68.05M) | uv_temp, Part 7-16
+Fra:1 Mem:62.22M (0.00M, Peak 68.05M) | uv_temp, Part 9-16
+Fra:1 Mem:59.90M (0.00M, Peak 68.05M) | uv_temp, Part 10-16
+Fra:1 Mem:62.36M (0.00M, Peak 68.05M) | uv_temp, Part 12-16
+Fra:1 Mem:49.18M (0.00M, Peak 68.05M) | uv_temp, Part 15-16
+Fra:1 Mem:46.23M (0.00M, Peak 68.05M) | uv_temp, Part 14-16
+Fra:1 Mem:37.72M (0.00M, Peak 68.05M) | uv_temp, Part 16-16
+Fra:1 Mem:29.21M (0.00M, Peak 68.05M) | uv_temp, Part 13-16
+Fra:1 Mem:26.55M (0.00M, Peak 68.05M) Sce: uv_temp Ve:606 Fa:403 La:0
+Saved: ./model/uv_layout/uv_mesh1_mesh1-geometry.006_mesh1_mesh1-geometry.016.png Time: 00:00.37 (Saving: 00:00.12)
 
 PyContext 'window' not found
 PyContext 'region' not found
 PyContext 'window' not found
 PyContext 'window' not found
 PyContext 'area' not found
-Fra:1 Mem:8.54M (0.00M, Peak 8.62M) | Preparing Scene data
-Fra:1 Mem:10.66M (0.00M, Peak 10.78M) | Preparing Scene data
-Fra:1 Mem:10.66M (0.00M, Peak 10.78M) | Creating Shadowbuffers
-Fra:1 Mem:10.66M (0.00M, Peak 10.78M) | Creating Environment maps
-Fra:1 Mem:10.66M (0.00M, Peak 10.78M) | Caching Point Densities
-Fra:1 Mem:10.66M (0.00M, Peak 10.78M) Sce: uv_temp Ve:20460 Fa:13640 La:0
-Fra:1 Mem:10.66M (0.00M, Peak 10.78M) | Loading voxel datasets
-Fra:1 Mem:10.66M (0.00M, Peak 10.78M) Sce: uv_temp Ve:20460 Fa:13640 La:0
-Fra:1 Mem:10.67M (0.00M, Peak 10.78M) Sce: uv_temp Ve:20460 Fa:13640 La:0
-Fra:1 Mem:10.67M (0.00M, Peak 10.78M) Sce: uv_temp Ve:20460 Fa:13640 La:0
-Fra:1 Mem:64.79M (0.00M, Peak 73.99M) | uv_temp, Part 3-16
-Fra:1 Mem:53.84M (0.00M, Peak 73.99M) | uv_temp, Part 4-16
-Fra:1 Mem:49.19M (0.00M, Peak 73.99M) | uv_temp, Part 2-16
-Fra:1 Mem:50.10M (0.00M, Peak 73.99M) | uv_temp, Part 1-16
-Fra:1 Mem:55.49M (0.00M, Peak 73.99M) | uv_temp, Part 6-16
-Fra:1 Mem:58.62M (0.00M, Peak 73.99M) | uv_temp, Part 5-16
-Fra:1 Mem:61.85M (0.00M, Peak 73.99M) | uv_temp, Part 7-16
-Fra:1 Mem:51.63M (0.00M, Peak 73.99M) | uv_temp, Part 10-16
-Fra:1 Mem:60.31M (0.00M, Peak 73.99M) | uv_temp, Part 8-16
-Fra:1 Mem:64.79M (0.00M, Peak 73.99M) | uv_temp, Part 11-16
-Fra:1 Mem:55.36M (0.00M, Peak 73.99M) | uv_temp, Part 12-16
-Fra:1 Mem:62.62M (0.00M, Peak 73.99M) | uv_temp, Part 9-16
-Fra:1 Mem:56.03M (0.00M, Peak 73.99M) | uv_temp, Part 16-16
-Fra:1 Mem:50.88M (0.00M, Peak 73.99M) | uv_temp, Part 13-16
-Fra:1 Mem:42.12M (0.00M, Peak 73.99M) | uv_temp, Part 15-16
-Fra:1 Mem:32.99M (0.00M, Peak 73.99M) | uv_temp, Part 14-16
-Fra:1 Mem:28.54M (0.00M, Peak 73.99M) Sce: uv_temp Ve:20460 Fa:13640 La:0
-Saved: ./uv_layout/uv_mesh5.001_mesh5-geometry.png Time: 00:00.53 (Saving: 00:00.22)
-
-PyContext 'window' not found
-PyContext 'region' not found
-PyContext 'window' not found
-PyContext 'window' not found
-PyContext 'area' not found
-Fra:1 Mem:9.17M (0.00M, Peak 9.21M) | Preparing Scene data
-Fra:1 Mem:9.17M (0.00M, Peak 9.21M) | Creating Shadowbuffers
-Fra:1 Mem:9.17M (0.00M, Peak 9.21M) | Creating Environment maps
-Fra:1 Mem:9.17M (0.00M, Peak 9.21M) | Caching Point Densities
-Fra:1 Mem:9.17M (0.00M, Peak 9.21M) Sce: uv_temp Ve:7200 Fa:4800 La:0
-Fra:1 Mem:9.17M (0.00M, Peak 9.21M) | Loading voxel datasets
-Fra:1 Mem:9.17M (0.00M, Peak 9.21M) Sce: uv_temp Ve:7200 Fa:4800 La:0
-Fra:1 Mem:9.17M (0.00M, Peak 9.21M) Sce: uv_temp Ve:7200 Fa:4800 La:0
-Fra:1 Mem:9.17M (0.00M, Peak 9.21M) Sce: uv_temp Ve:7200 Fa:4800 La:0
-Fra:1 Mem:59.46M (0.00M, Peak 68.89M) | uv_temp, Part 3-16
-Fra:1 Mem:58.42M (0.00M, Peak 68.89M) | uv_temp, Part 1-16
-Fra:1 Mem:55.72M (0.00M, Peak 68.89M) | uv_temp, Part 4-16
-Fra:1 Mem:58.72M (0.00M, Peak 68.89M) | uv_temp, Part 2-16
-Fra:1 Mem:49.77M (0.00M, Peak 68.89M) | uv_temp, Part 6-16
-Fra:1 Mem:51.58M (0.00M, Peak 68.89M) | uv_temp, Part 5-16
-Fra:1 Mem:64.48M (0.00M, Peak 69.39M) | uv_temp, Part 7-16
-Fra:1 Mem:58.28M (0.00M, Peak 69.39M) | uv_temp, Part 9-16
-Fra:1 Mem:49.14M (0.00M, Peak 69.39M) | uv_temp, Part 11-16
-Fra:1 Mem:46.04M (0.00M, Peak 69.39M) | uv_temp, Part 8-16
-Fra:1 Mem:47.58M (0.00M, Peak 69.39M) | uv_temp, Part 12-16
-Fra:1 Mem:47.73M (0.00M, Peak 69.39M) | uv_temp, Part 10-16
-Fra:1 Mem:54.82M (0.00M, Peak 69.39M) | uv_temp, Part 13-16
-Fra:1 Mem:44.77M (0.00M, Peak 69.39M) | uv_temp, Part 16-16
-Fra:1 Mem:42.45M (0.00M, Peak 69.39M) | uv_temp, Part 15-16
-Fra:1 Mem:31.49M (0.00M, Peak 69.39M) | uv_temp, Part 14-16
-Fra:1 Mem:28.23M (0.00M, Peak 69.39M) Sce: uv_temp Ve:7200 Fa:4800 La:0
-Saved: ./uv_layout/uv_mesh6.001_mesh6-geometry.png Time: 00:00.29 (Saving: 00:00.14)
-
-PyContext 'window' not found
-PyContext 'region' not found
-PyContext 'window' not found
-PyContext 'window' not found
-PyContext 'area' not found
-Fra:1 Mem:8.65M (0.00M, Peak 8.67M) | Preparing Scene data
-Fra:1 Mem:8.65M (0.00M, Peak 8.67M) | Creating Shadowbuffers
-Fra:1 Mem:8.65M (0.00M, Peak 8.67M) | Creating Environment maps
-Fra:1 Mem:8.65M (0.00M, Peak 8.67M) | Caching Point Densities
-Fra:1 Mem:8.65M (0.00M, Peak 8.67M) Sce: uv_temp Ve:2880 Fa:1920 La:0
-Fra:1 Mem:8.65M (0.00M, Peak 8.67M) | Loading voxel datasets
-Fra:1 Mem:8.65M (0.00M, Peak 8.67M) Sce: uv_temp Ve:2880 Fa:1920 La:0
-Fra:1 Mem:8.65M (0.00M, Peak 8.67M) Sce: uv_temp Ve:2880 Fa:1920 La:0
-Fra:1 Mem:8.65M (0.00M, Peak 8.67M) Sce: uv_temp Ve:2880 Fa:1920 La:0
-Fra:1 Mem:52.11M (0.00M, Peak 68.66M) | uv_temp, Part 1-16
-Fra:1 Mem:54.96M (0.00M, Peak 68.66M) | uv_temp, Part 3-16
-Fra:1 Mem:53.16M (0.00M, Peak 68.66M) | uv_temp, Part 2-16
-Fra:1 Mem:42.58M (0.00M, Peak 68.66M) | uv_temp, Part 4-16
-Fra:1 Mem:50.95M (0.00M, Peak 68.66M) | uv_temp, Part 5-16
-Fra:1 Mem:55.99M (0.00M, Peak 68.66M) | uv_temp, Part 6-16
-Fra:1 Mem:51.48M (0.00M, Peak 68.66M) | uv_temp, Part 7-16
-Fra:1 Mem:57.30M (0.00M, Peak 68.66M) | uv_temp, Part 8-16
-Fra:1 Mem:52.78M (0.00M, Peak 68.66M) | uv_temp, Part 9-16
-Fra:1 Mem:55.23M (0.00M, Peak 68.66M) | uv_temp, Part 10-16
-Fra:1 Mem:44.00M (0.00M, Peak 68.66M) | uv_temp, Part 12-16
-Fra:1 Mem:41.93M (0.00M, Peak 68.66M) | uv_temp, Part 11-16
-Fra:1 Mem:53.29M (0.00M, Peak 68.66M) | uv_temp, Part 13-16
-Fra:1 Mem:51.37M (0.00M, Peak 68.66M) | uv_temp, Part 14-16
-Fra:1 Mem:34.97M (0.00M, Peak 68.66M) | uv_temp, Part 16-16
-Fra:1 Mem:30.98M (0.00M, Peak 68.66M) | uv_temp, Part 15-16
-Fra:1 Mem:28.14M (0.00M, Peak 68.66M) Sce: uv_temp Ve:2880 Fa:1920 La:0
-Saved: ./uv_layout/uv_mesh7.001_mesh7-geometry.png Time: 00:00.21 (Saving: 00:00.12)
+Fra:1 Mem:6.91M (0.00M, Peak 6.92M) | Preparing Scene data
+Fra:1 Mem:6.91M (0.00M, Peak 6.92M) | Creating Shadowbuffers
+Fra:1 Mem:6.91M (0.00M, Peak 6.92M) | Creating Environment maps
+Fra:1 Mem:6.91M (0.00M, Peak 6.92M) | Caching Point Densities
+Fra:1 Mem:6.91M (0.00M, Peak 6.92M) Sce: uv_temp Ve:924 Fa:616 La:0
+Fra:1 Mem:6.91M (0.00M, Peak 6.92M) | Loading voxel datasets
+Fra:1 Mem:6.91M (0.00M, Peak 6.92M) Sce: uv_temp Ve:924 Fa:616 La:0
+Fra:1 Mem:6.92M (0.00M, Peak 6.92M) Sce: uv_temp Ve:924 Fa:616 La:0
+Fra:1 Mem:6.92M (0.00M, Peak 6.92M) Sce: uv_temp Ve:924 Fa:616 La:0
+Fra:1 Mem:66.63M (0.00M, Peak 69.50M) | uv_temp, Part 3-16
+Fra:1 Mem:64.31M (0.00M, Peak 69.50M) | uv_temp, Part 4-16
+Fra:1 Mem:55.02M (0.00M, Peak 69.50M) | uv_temp, Part 1-16
+Fra:1 Mem:65.34M (0.00M, Peak 69.50M) | uv_temp, Part 2-16
+Fra:1 Mem:57.59M (0.00M, Peak 69.50M) | uv_temp, Part 7-16
+Fra:1 Mem:50.24M (0.00M, Peak 69.50M) | uv_temp, Part 9-16
+Fra:1 Mem:51.15M (0.00M, Peak 69.50M) | uv_temp, Part 5-16
+Fra:1 Mem:47.67M (0.00M, Peak 69.50M) | uv_temp, Part 6-16
+Fra:1 Mem:55.54M (0.00M, Peak 69.50M) | uv_temp, Part 11-16
+Fra:1 Mem:57.74M (0.00M, Peak 69.50M) | uv_temp, Part 8-16
+Fra:1 Mem:50.26M (0.00M, Peak 69.50M) | uv_temp, Part 12-16
+Fra:1 Mem:60.57M (0.00M, Peak 69.50M) | uv_temp, Part 15-16
+Fra:1 Mem:54.89M (0.00M, Peak 69.50M) | uv_temp, Part 16-16
+Fra:1 Mem:46.38M (0.00M, Peak 69.50M) | uv_temp, Part 10-16
+Fra:1 Mem:37.75M (0.00M, Peak 69.50M) | uv_temp, Part 14-16
+Fra:1 Mem:29.24M (0.00M, Peak 69.50M) | uv_temp, Part 13-16
+Fra:1 Mem:26.58M (0.00M, Peak 69.50M) Sce: uv_temp Ve:924 Fa:616 La:0
+Saved: ./model/uv_layout/uv_mesh1_mesh1-geometry.007_mesh1_mesh1-geometry.017.png Time: 00:00.36 (Saving: 00:00.12)
 
 
-importing obj './model_c.obj'
+importing obj './model/model_c.obj'
 	parsing obj file...
-0.1169 sec
+0.0055 sec
 	loading materials and images...
 0.0001 sec
 	building geometry...
-	verts:4522 faces:17228 materials: 1 smoothgroups:1 ...
-finished importing: b'./model_c.obj' in 0.2654 sec.
-mesh1.001_mesh1-geometry
-Smart Projection time: 0.01
-mesh2.001_mesh2-geometry
-Smart Projection time: 0.04
-mesh3.001_mesh3-geometry
-Smart Projection time: 0.03
-mesh4.001_mesh4-geometry
-Smart Projection time: 0.03
-mesh5.001_mesh5-geometry
-Smart Projection time: 0.13
-mesh6.001_mesh6-geometry
-Smart Projection time: 0.04
-mesh7.001_mesh7-geometry
+	verts:493 faces:879 materials: 1 smoothgroups:1 ...
+finished importing: b'./model/model_c.obj' in 0.0138 sec.
+Smart Projection time: 0.00
 Smart Projection time: 0.02
-OBJ Export path: './model_p.obj'
-OBJ Export time: 0.17
+Smart Projection time: 0.00
+Smart Projection time: 0.00
+Smart Projection time: 0.00
+OBJ Export path: './model/model_p.obj'
+OBJ Export time: 0.02
 PyContext 'window' not found
 PyContext 'region' not found
 
