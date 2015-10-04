@@ -1,0 +1,45 @@
+newmtl texture_mesh1_mesh1-geometry.006_mesh1_mesh1-geometry.016
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd ./texture/texture_mesh1_mesh1-geometry.006_mesh1_mesh1-geometry.016.png
+
+newmtl texture_mesh1_mesh1-geometry.007_mesh1_mesh1-geometry.017
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd ./texture/texture_mesh1_mesh1-geometry.007_mesh1_mesh1-geometry.017.png
+
+newmtl texture_mesh1_mesh1-geometry.001_mesh1_mesh1-geometry.003
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd ./texture/texture_mesh1_mesh1-geometry.001_mesh1_mesh1-geometry.003.png
+
+newmtl texture_mesh1_mesh1-geometry.002_mesh1_mesh1-geometry.020
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd ./texture/texture_mesh1_mesh1-geometry.002_mesh1_mesh1-geometry.020.png
+
+newmtl texture_mesh1_mesh1-geometry.003_mesh1_mesh1-geometry.008
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd ./texture/texture_mesh1_mesh1-geometry.003_mesh1_mesh1-geometry.008.png
+

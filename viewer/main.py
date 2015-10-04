@@ -39,7 +39,7 @@ from kivy.cache import Cache
 from PIL import Image as pilimage
 
 global is_retina_screen
-is_retina_screen=True
+is_retina_screen=False
 
 
 class rimgv(FloatLayout):
@@ -118,11 +118,11 @@ class meshv(FloatLayout):
 
     def update_glsl(self, *largs):
         asp = self.width / float(self.height)
-        asp = 15/5.5
+        asp = 15/6.0
         proj = Matrix()
         mat = Matrix()
         mat = mat.look_at(self.camera_loc[0]*self.camera_r, self.camera_loc[1]*self.camera_r, self.camera_loc[2]*self.camera_r, 0,0,0, self.camera_up[0],self.camera_up[1],self.camera_up[2])
-        proj = proj.view_clip(-asp*0.5,asp*0.5, -0.5, 0.5, 1, 10, 50)
+        proj = proj.view_clip(-asp*0.5,asp*0.5, -0.5, 0.5, 1, 10, 1)
         
         self.canvas['projection_mat'] = proj
         self.canvas['modelview_mat'] = mat
@@ -190,6 +190,119 @@ class meshv(FloatLayout):
             texture_id_[self.texture_id].remove_from_cache()
             self.draw_mark()
 
+        elif touch.x>=500 and touch.x<=1000 and touch.y>=0 and touch.y<=550 and self._keyboard == 'm':
+            #print touch.x, touch.y
+            rx = (touch.x-750.0)/500.0 
+            ry = (touch.y-300.0)/500.0
+            rr=1/2.6
+
+            cam_c_x=self.camera_loc[0]*self.camera_r
+            cam_c_y=self.camera_loc[1]*self.camera_r
+            cam_c_z=self.camera_loc[2]*self.camera_r
+
+            cam_f_x=-cam_c_x/pow(cam_c_x*cam_c_x+cam_c_y*cam_c_y+cam_c_z*cam_c_z,0.5)
+            cam_f_y=-cam_c_y/pow(cam_c_x*cam_c_x+cam_c_y*cam_c_y+cam_c_z*cam_c_z,0.5)
+            cam_f_z=-cam_c_z/pow(cam_c_x*cam_c_x+cam_c_y*cam_c_y+cam_c_z*cam_c_z,0.5)
+
+            cam_u_x=self.camera_up[0]/pow(self.camera_up[0]*self.camera_up[0]+self.camera_up[1]*self.camera_up[1]+self.camera_up[2]*self.camera_up[2],0.5)
+            cam_u_y=self.camera_up[1]/pow(self.camera_up[0]*self.camera_up[0]+self.camera_up[1]*self.camera_up[1]+self.camera_up[2]*self.camera_up[2],0.5)
+            cam_u_z=self.camera_up[2]/pow(self.camera_up[0]*self.camera_up[0]+self.camera_up[1]*self.camera_up[1]+self.camera_up[2]*self.camera_up[2],0.5)
+
+            cam_r_x=cam_f_y*cam_u_z-cam_f_z*cam_u_y
+            cam_r_y=cam_f_z*cam_u_x-cam_f_x*cam_u_z
+            cam_r_z=cam_f_x*cam_u_y-cam_f_y*cam_u_x
+
+            ray_x=1.0*cam_f_x+ry*cam_u_x*rr+rx*cam_r_x*rr
+            ray_y=1.0*cam_f_y+ry*cam_u_y*rr+rx*cam_r_y*rr
+            ray_z=1.0*cam_f_z+ry*cam_u_z*rr+rx*cam_r_z*rr
+
+            #print rx,ry,'-',cam_c_x,cam_c_y,cam_c_z,'-',cam_f_x,cam_f_y,cam_f_z,'-',cam_u_x,cam_u_y,cam_u_z,'-',cam_r_x,cam_r_y,cam_r_z,'-',ray_x,ray_y,ray_z
+
+            #print len(self.scene.objects.values()[0].indices)
+
+            dpt = 100000.0
+            did=0
+            dvtx=0
+            dvty=0
+            
+            for id in range(0,len(self.scene.objects)):
+                for tr in range(0,len(self.scene.objects.values()[id].indices)/3):
+                    va_id = self.scene.objects.values()[id].indices[tr*3]
+                    vb_id = self.scene.objects.values()[id].indices[tr*3+1]
+                    vc_id = self.scene.objects.values()[id].indices[tr*3+2]
+                    va_x = self.scene.objects.values()[id].vertices[va_id*8]
+                    va_y = self.scene.objects.values()[id].vertices[va_id*8+1]
+                    va_z = self.scene.objects.values()[id].vertices[va_id*8+2]
+                    vb_x = self.scene.objects.values()[id].vertices[vb_id*8]
+                    vb_y = self.scene.objects.values()[id].vertices[vb_id*8+1]
+                    vb_z = self.scene.objects.values()[id].vertices[vb_id*8+2]
+                    vc_x = self.scene.objects.values()[id].vertices[vc_id*8]
+                    vc_y = self.scene.objects.values()[id].vertices[vc_id*8+1]
+                    vc_z = self.scene.objects.values()[id].vertices[vc_id*8+2]
+
+                    v1_x=vb_x-va_x
+                    v1_y=vb_y-va_y
+                    v1_z=vb_z-va_z
+                    v2_x=vc_x-va_x
+                    v2_y=vc_y-va_y
+                    v2_z=vc_z-va_z
+
+                    vn_x = v1_y*v2_z-v1_z*v2_y
+                    vn_y = v1_z*v2_x-v1_x*v2_z
+                    vn_z = v1_x*v2_y-v1_y*v2_x
+
+                    md=vn_x*va_x+vn_y*va_y+vn_z*va_z
+                    dd=-md
+
+                    if ray_x*vn_x+ray_y*vn_y+ray_z*vn_z != 0 :
+
+                        t=-(cam_c_x*vn_x+cam_c_y*vn_y+cam_c_z*vn_z+dd)/(ray_x*vn_x+ray_y*vn_y+ray_z*vn_z)
+                        px=cam_c_x+t*ray_x
+                        py=cam_c_y+t*ray_y
+                        pz=cam_c_z+t*ray_z
+
+                        def area_3d(u1,u2,u3,v1,v2,v3):
+                            return pow(pow(u2*v3-u3*v2,2)+pow(u3*v1-u1*v3,2)+pow(u1*v2-u2*v1,2),0.5)
+
+                        s1=area_3d(px-va_x,py-va_y,pz-va_z,px-vb_x,py-vb_y,pz-vb_z)+area_3d(px-vb_x,py-vb_y,pz-vb_z,px-vc_x,py-vc_y,pz-vc_z)+area_3d(px-vc_x,py-vc_y,pz-vc_z,px-va_x,py-va_y,pz-va_z)
+                        s2=area_3d(v1_x,v1_y,v1_z,v2_x,v2_y,v2_z)
+
+                        if s1-s2<0.0001:
+                            depth = pow(pow(px-cam_c_x,2)+pow(py-cam_c_y,2)+pow(pz-cam_c_z,2),0.5)
+                            if depth<dpt:
+                                
+                                dpt = depth
+                                did=id
+                                vtax=self.scene.objects.values()[id].vertices[va_id*8+6]
+                                vtay=self.scene.objects.values()[id].vertices[va_id*8+7]
+                                vtbx=self.scene.objects.values()[id].vertices[vb_id*8+6]
+                                vtby=self.scene.objects.values()[id].vertices[vb_id*8+7]
+                                vtcx=self.scene.objects.values()[id].vertices[vc_id*8+6]
+                                vtcy=self.scene.objects.values()[id].vertices[vc_id*8+7]
+                                lam = area_3d(px-va_x,py-va_y,pz-va_z,px-vb_x,py-vb_y,pz-vb_z)/s2
+                                mu = area_3d(px-vc_x,py-vc_y,pz-vc_z,px-va_x,py-va_y,pz-va_z)/s2
+                                dvtx = vtax + lam*(vtcx-vtax) + mu*(vtbx-vtax)
+                                dvty = vtay + lam*(vtcy-vtay) + mu*(vtby-vtay)
+                                #print px,py,pz,depth,s1,s2,lam,mu
+
+            if dpt < 99999.0:
+                #print did
+                timg = pilimage.open(os.path.split(sys.argv[1])[0]+'/texture/tmp_'+self.scene.material.values()[did]+'.png')
+                tpx = timg.load()
+                ranr = randint(0,256)
+                rang = randint(0,256)
+                ranb = randint(0,256)
+                for i in range(int(dvtx*timg.size[0])-9,int(dvtx*timg.size[0])+10):
+                    for j in range(int(dvty*timg.size[0])-9,int(dvty*timg.size[0])+10):
+                        if i>=0 and i<timg.size[0] and j>=0 and j<timg.size[1]:
+                            tpx[i,j] = (ranr,rang,ranb)
+                timg.save(os.path.split(sys.argv[1])[0]+'/texture/tmp_'+self.scene.material.values()[did]+'.png')
+            #print self.scene.material.values()[self.texture_id]
+                global texture_id_
+                texture_id_[did].remove_from_cache()
+                self.draw_mark()
+
+
         else: 
             self._touches.append(touch)
         
@@ -220,6 +333,9 @@ class meshv(FloatLayout):
             print 'checkerboard on/off'
         if keycode[1] == 't':
             print 'keycode disable'
+        if keycode[1] == 'm':
+            self._keyboard = 'm'
+            print '3D_mark_mode'
 
     def btn_rotate(self):
         self._keyboard ='r'
@@ -266,6 +382,9 @@ class meshv(FloatLayout):
         global mytext
         textv.texture_update(mytext)        
         print 'texture reset'
+    def btn_3d_mark(self):
+        self._keyboard ='m'
+        print '3D_mark_mode'
 
     def redraw(self):
         self.canvas.clear()
@@ -321,6 +440,9 @@ class meshv(FloatLayout):
                 if scale:
                     self.camera_r += scale*self.camera_r/5
                     #print scale,self.camera_r
+
+
+
             self.update_glsl()
 
 class textv(FloatLayout):
@@ -425,7 +547,8 @@ class ViewerApp(App):
             myviewer.btn_prev_texture()
         def btn7_callback(instance):
             myviewer.btn_next_texture()
-
+        def btn8_callback(instance):
+            myviewer.btn_3d_mark()
 
         btn1 = Button(text='rotate',size=(100,50),pos=(0,550),size_hint=(None,None))#heckerboard')
         btn1.bind(on_press=btn1_callback)
@@ -441,7 +564,8 @@ class ViewerApp(App):
         btn6.bind(on_press=btn6_callback)
         btn7 = Button(text='>>',size=(30,50),pos=(831,550),size_hint=(None,None))
         btn7.bind(on_press=btn7_callback)
-
+        btn8 = Button(text='3D mark',size=(200,50),pos=(861,550),size_hint=(None,None))
+        btn8.bind(on_press=btn8_callback)
 
         btnwidget.add_widget(btn1)
         btnwidget.add_widget(btn2)
@@ -450,7 +574,7 @@ class ViewerApp(App):
         btnwidget.add_widget(btn5)
         btnwidget.add_widget(btn6)
         btnwidget.add_widget(btn7)
-
+        btnwidget.add_widget(btn8)
 
         parentlayout.add_widget(imgwidget, index=1)
         parentlayout.add_widget(viewerwidget, index=0)

@@ -55,7 +55,7 @@ for i in range(1,group_count+1):
 
 f4.close()
 
-img = Image.new('RGB',(1000,1000),"green")
+img = Image.new('RGB',(1000,1000),(0,255,0))
 #img = Image.open('checkerboard.jpg')
 
 #img.putdata(my_list)

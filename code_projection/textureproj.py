@@ -376,9 +376,43 @@ for i in range(1,cim+1):
 					py_=py+1
 				else:
 					py_=py
-				dpt=max(rimg_pd[px,py],rimg_pd[px_,py],rimg_pd[px,py_],rimg_pd[px_,py_])
+				if px>0:
+					px__=px-1
+				else:
+					px__=px
+				if py>0:
+					py__=py-1
+				else:
+					py__=py
+
+				dpt=max(rimg_pd[px__,py__],rimg_pd[px__,py_],rimg_pd[px__,py],rimg_pd[px_,py__],rimg_pd[px_,py_],rimg_pd[px_,py],rimg_pd[px,py__],rimg_pd[px,py_],rimg_pd[px,py])
 				if img_rd[i][li,lj]>dpt+ep:
 					img_p[i][li,lj]=(255,0,0)
+
+if True: # naive completion
+	for i in range(1,cim+1):
+		#print img_p[i][1,1]
+		avgx = 0.0
+		avgy = 0.0
+		avgz = 0.0
+		count = 0.0
+		for li in range(0,img[i].size[0]):
+			for lj in range(0,img[i].size[1]):
+				if img_p[i][li,lj] != (255,0,0) and img_p[i][li,lj] != (0,255,0):
+					count += 1.0
+					avgx += img_p[i][li,lj][0]
+					avgy += img_p[i][li,lj][1]
+					avgz += img_p[i][li,lj][2]
+
+		avgx = int(avgx/count)
+		avgy = int(avgy/count)
+		avgz = int(avgz/count)
+		for li in range(0,img[i].size[0]):
+			for lj in range(0,img[i].size[1]):
+				if img_p[i][li,lj] != (0,255,0):
+					img_p[i][li,lj] = (avgx,avgy,avgz)
+
+
 
 for i in range(1,cim+1):
 	img[i].save(img_name[i])
