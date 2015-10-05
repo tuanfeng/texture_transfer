@@ -35,6 +35,7 @@ from kivy.config import Config
 from kivy.uix.dropdown import DropDown
 from random import randint
 from kivy.cache import Cache
+from kivy.config import Config
 
 from PIL import Image as pilimage
 
@@ -302,6 +303,15 @@ class meshv(FloatLayout):
                 texture_id_[did].remove_from_cache()
                 self.draw_mark()
 
+                self.texture_id = did
+                global global_texture_filename
+                global_texture_filename = os.path.split(sys.argv[1])[0]+'/texture/tmp_'+self.scene.material.values()[self.texture_id]+'.png'
+                global global_uv_filename
+                global_uv_filename = os.path.split(sys.argv[1])[0]+'/uv_layout/uv'+self.scene.material.values()[self.texture_id][7:]+'.png'
+                #print 'texture next',global_texture_filename,global_uv_filename
+                global mytext
+                textv.texture_update(mytext)
+
 
         else: 
             self._touches.append(touch)
@@ -476,6 +486,8 @@ class textv(FloatLayout):
 class ViewerApp(App):
 
     def build(self):
+
+        Config.set('input', 'mouse', 'mouse,disable_multitouch')
 
         global is_retina_screen
         if is_retina_screen: #retina screen?
