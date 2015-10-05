@@ -3,7 +3,7 @@
 
 clean obj file (clean_info)
 
-	python clean.py ./model/model.obj ./model/model_c.obj v f s o
+	python clean.py ../data/model/model.obj ../data/model/model_c.obj v f s o
 
 parameterization: generate uv coordinate, using para_info
 
@@ -11,7 +11,7 @@ parameterization: generate uv coordinate, using para_info
 
 initial texture image
 
-	python textureinit.py ./model/model_p.obj ./model/model_t.obj
+	python textureinit.py ../data/model/model_p.obj ../data/model/model_t.obj
 
 get est-view.txt
 	
@@ -19,4 +19,4 @@ get est-view.txt
 
 project texture image
 	
-	python textureproj.py ./model/image.png ./model/model_t.obj ./model/est-view.txt
+	python textureproj.py ../data/model/image.png ../data/model/model_t.obj ../data/model/est-view.txt

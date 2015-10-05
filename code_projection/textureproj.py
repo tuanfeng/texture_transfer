@@ -389,7 +389,7 @@ for i in range(1,cim+1):
 				if img_rd[i][li,lj]>dpt+ep:
 					img_p[i][li,lj]=(255,0,0)
 
-if True: # naive completion
+if False: # naive completion
 	for i in range(1,cim+1):
 		#print img_p[i][1,1]
 		avgx = 0.0

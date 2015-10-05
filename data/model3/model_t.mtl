@@ -1,0 +1,45 @@
+newmtl texture_Mesh5_Group6_Group1_Model
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd ./texture/texture_Mesh5_Group6_Group1_Model.png
+
+newmtl texture_Mesh9_Group10_Group1_Model
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd ./texture/texture_Mesh9_Group10_Group1_Model.png
+
+newmtl texture_Mesh2_Group3_Group1_Model
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd ./texture/texture_Mesh2_Group3_Group1_Model.png
+
+newmtl texture_Mesh8_Group9_Group1_Model
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd ./texture/texture_Mesh8_Group9_Group1_Model.png
+
+newmtl texture_Mesh4_Group5_Group1_Model
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd ./texture/texture_Mesh4_Group5_Group1_Model.png
+
