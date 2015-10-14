@@ -1,13 +1,32 @@
 # projection
 
 
+data format 
+	
+	texture_m.mat: t_size_x,t_size_y,label[i][x,y],pixel[i][x,y]
+	image_m.mat: size_x,size_y,depth[x,y]
+
+
 clean obj file (clean_info)
 
-	python clean.py ../data/model/model.obj ../data/model/model_c.obj v f s o
+	python clean.py ../../../data/model/model.obj ../../../data/model/model_c.obj 
 
-parameterization: generate uv coordinate, using para_info
+parameterization: generate uv coordinate, update para_info first
+
+	para_info
 
 	/Applications/blender.app/Contents/MacOS/blender -b empty.blend -P parameterization.py > log
+
+texture_m to texture images
+	
+	python texturegen.py ../data/model/texture_m.mat ../data/model/texture/
+
+
+
+
+
+
+
 
 initial texture image
 

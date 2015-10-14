@@ -40,7 +40,7 @@ from kivy.config import Config
 from PIL import Image as pilimage
 
 global is_retina_screen
-is_retina_screen=False
+is_retina_screen=True
 
 
 class rimgv(FloatLayout):
