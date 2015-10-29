@@ -18,25 +18,33 @@ group_number = mat['group_number']
 size_x = mat['size_x']
 size_y = mat['size_y']
 pixel = mat['pixel']
-pixel_=np.zeros((group_number[0],250,250,3),dtype='u2')
+pixel_ori = mat['pixel_ori']
+
+new_size = 250
+
+pixel_=np.zeros((group_number[0],new_size,new_size,3),dtype='u2')
 
 for img_id in range(0,group_number[0]):
-	for pi in range(0,size_x[0,img_id]):
-		for pj in range(0,size_y[0,img_id]):
+	#size_x[0,img_id] = new_size
+	#size_y[0,img_id] = new_size
+
+	for pi in range(0,new_size):#size_x[0,img_id]):
+		for pj in range(0,new_size):#size_y[0,img_id]):
 			pixel_[img_id,pi,pj]=pixel[img_id,pi,pj]
 
 offset = mat['offset']
+peak = 50
 
-for img_id in range(0,1):
+for img_id in range(0,group_number[0]):
 
-	peak = 30
-	sortx = np.zeros((30,3),int)
+	
+	sortx = np.zeros((peak,3),int)
 	
 	for pi in range(0,2*size_x[0,img_id]):
 		for pj in range(0,2*size_y[0,img_id]):
-			ids=29
+			ids=peak-1
 			while ids>=0 and sortx[ids,0]<offset[img_id,pi,pj]:
-				if ids == 29:
+				if ids == peak-1:
 					sortx[ids,0]=offset[img_id,pi,pj]
 					sortx[ids,1]=pi-250
 					sortx[ids,2]=pj-250
@@ -51,21 +59,39 @@ for img_id in range(0,1):
 					ids = ids - 1		
 
 
-	offs = np.zeros((60,2),int)
-	for iii in range(0,30):
-		offs[iii,0]=sortx[iii,1]
-		offs[iii,1]=sortx[iii,2]
-		offs[iii+30,0]=sortx[iii,1]*2
-		offs[iii+30,1]=sortx[iii,2]*2
+	offs = np.zeros((peak*8,2),int)
+	for iii in range(0,peak):
+		offs[iii,0]=sortx[iii,1]*int(new_size/250)
+		offs[iii,1]=sortx[iii,2]*int(new_size/250)
+		offs[iii+peak,0]=sortx[iii,1]*2*int(new_size/250)
+		offs[iii+peak,1]=sortx[iii,2]*2*int(new_size/250)
+		offs[iii+2*peak,0]=sortx[iii,1]*3*int(new_size/250)
+		offs[iii+2*peak,1]=sortx[iii,2]*3*int(new_size/250)
+		offs[iii+3*peak,0]=sortx[iii,1]*4*int(new_size/250)
+		offs[iii+3*peak,1]=sortx[iii,2]*4*int(new_size/250)
+		offs[iii+4*peak,0]=sortx[iii,1]*5*int(new_size/250)
+		offs[iii+4*peak,1]=sortx[iii,2]*5*int(new_size/250)
+		offs[iii+5*peak,0]=sortx[iii,1]*6*int(new_size/250)
+		offs[iii+5*peak,1]=sortx[iii,2]*6*int(new_size/250)
+		offs[iii+6*peak,0]=sortx[iii,1]*7*int(new_size/250)
+		offs[iii+6*peak,1]=sortx[iii,2]*7*int(new_size/250)
+		offs[iii+7*peak,0]=sortx[iii,1]*8*int(new_size/250)
+		offs[iii+7*peak,1]=sortx[iii,2]*8*int(new_size/250)
+
 
 	flag_all = True
+	count_all = 0
+
+	size_x[0,img_id] = new_size
+	size_y[0,img_id] = new_size
 
 	while flag_all:
 	
 		reglabel = np.zeros((size_x[0,img_id],size_y[0,img_id]),'u2')
 		reglabel_ = np.zeros((size_x[0,img_id],size_y[0,img_id]),'u2')
 
-		count_all=0;
+		count_before = count_all
+		count_all=0
 
 		for pi in range(0,size_x[0,img_id]):
 			for pj in range(0,size_y[0,img_id]):
@@ -77,7 +103,9 @@ for img_id in range(0,1):
 				else:
 					reglabel[pi,pj]=0
 	
-		if count_all < 50:
+		print count_all, "pixels to compelet"
+
+		if count_all < 50 or count_all == count_before:
 			flag_all = False
 			continue
 
@@ -105,13 +133,15 @@ for img_id in range(0,1):
 										reglabel_[pi+di,pj+dj] = 2
 
 		fid = open('tmp_1','w')
-		fid.write(str(size_x[0,img_id])+' '+str(size_y[0,img_id])+' '+str(60)+'\n')
+		fid.write(str(size_x[0,img_id])+' '+str(size_y[0,img_id])+' '+str(peak*16)+'\n')
 		for pi in range(0,size_x[0,img_id]):
 			for pj in range(0,size_y[0,img_id]):
 				fid.write(str(pixel_[img_id,pi,pj,0])+' '+str(pixel_[img_id,pi,pj,1])+' '+str(pixel_[img_id,pi,pj,2])+' '+str(reglabel_[pi,pj])+'\n')
 	
-		for offid in range(0,60):
+		for offid in range(0,peak*8):
 			fid.write(str(offs[offid,0])+' '+str(offs[offid,1])+'\n')		 
+		for offid in range(0,peak*8):
+			fid.write(str(-offs[offid,0])+' '+str(-offs[offid,1])+'\n')		 
 
 		fid.close()
 
@@ -134,7 +164,7 @@ for img_id in range(0,1):
 
 		fid2.close()
 
-
+	print "+++++++++++++++++++++++++++++",count_all
 	#delete tmp_1,tmp_2
 
 

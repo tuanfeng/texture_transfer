@@ -19,6 +19,8 @@ pixel = mat['pixel']
 ou_size_x=np.zeros((group_number[0]),dtype=int)
 ou_size_y=np.zeros((group_number[0]),dtype=int)
 ou_pixel=np.zeros((group_number[0],250,250,3),dtype='u2')
+ou_pixel_=np.zeros((group_number[0],250,250,3),dtype='u2')
+
 ou_offset=np.zeros((group_number[0],500,500),dtype='u2')
 
 dis_limit = 5.0
@@ -50,10 +52,13 @@ for i in range(0,group_number[0]):
 				tp[pi,pj,1]=0
 				tp[pi,pj,2]=0
 			if pixel[i,pi*2,pj*2,1]>255 or pixel[i,pi*2+1,pj*2,1]>255 or pixel[i,pi*2,pj*2+1,1]>255 or pixel[i,pi*2+1,pj*2+1,1]>255:
+				tp[pi,pj,0]=256
+				tp[pi,pj,1]=0
+				tp[pi,pj,2]=0
+			if pixel[i,pi*2,pj*2,1]>255 and pixel[i,pi*2+1,pj*2,1]>255 and pixel[i,pi*2,pj*2+1,1]>255 and pixel[i,pi*2+1,pj*2+1,1]>255:
 				tp[pi,pj,0]=0
 				tp[pi,pj,1]=256
 				tp[pi,pj,2]=0
-
 
 	for pi in range(0,250):
 		for pj in range(0,250):
@@ -65,9 +70,27 @@ for i in range(0,group_number[0]):
 				ou_pixel[i,pi,pj,1]=0
 				ou_pixel[i,pi,pj,2]=0
 			if tp[pi*2,pj*2,1]>255 or tp[pi*2+1,pj*2,1]>255 or tp[pi*2,pj*2+1,1]>255 or tp[pi*2+1,pj*2+1,1]>255:
+				ou_pixel[i,pi,pj,0]=256
+				ou_pixel[i,pi,pj,1]=0
+				ou_pixel[i,pi,pj,2]=0
+			if tp[pi*2,pj*2,1]>255 and tp[pi*2+1,pj*2,1]>255 and tp[pi*2,pj*2+1,1]>255 and tp[pi*2+1,pj*2+1,1]>255:
 				ou_pixel[i,pi,pj,0]=0
 				ou_pixel[i,pi,pj,1]=256
 				ou_pixel[i,pi,pj,2]=0
+			ou_pixel_[i,pi,pj]=ou_pixel[i,pi,pj]
+
+	for pi in range(1,249):
+		for pj in range(1,249):
+			if ou_pixel_[i,pi,pj,1]>255:
+				if ou_pixel_[i,pi-1,pj-1,1]<=255 or ou_pixel_[i,pi-1,pj,1]<=255 or ou_pixel_[i,pi-1,pj+1,1]<=255 or ou_pixel_[i,pi,pj-1,1]<=255 or ou_pixel_[i,pi,pj+1,1]<=255 or ou_pixel_[i,pi+1,pj-1,1]<=255 or ou_pixel_[i,pi+1,pj,1]<=255 or ou_pixel_[i,pi+1,pj+1,1]<=255:
+					ou_pixel[i,pi,pj,0] = 256
+					ou_pixel[i,pi,pj,1] = 0
+					ou_pixel[i,pi,pj,2] = 0
+
+
+
+
+
 
 	for pi in range(patch_size,ou_size_x[i]-patch_size-1,2):
 		#print pi,patch_count
@@ -164,7 +187,7 @@ for i in range(0,group_number[0]):
 #			tag_y = - tag_y
 		ou_offset[i,tag_x+250,tag_y+250] = ou_offset[i,tag_x+250,tag_y+250]+1
 
-spio.savemat(output,{'group_number':group_number,'name':name,'size_x':ou_size_x,'size_y':ou_size_y,'pixel':ou_pixel,'offset':ou_offset})
+spio.savemat(output,{'group_number':group_number,'name':name,'size_x':ou_size_x,'size_y':ou_size_y,'pixel':ou_pixel,'offset':ou_offset,'pixel_ori':pixel})
 
 		
 

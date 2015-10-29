@@ -43,8 +43,9 @@ for objs in bpy.data.objects:
 		bpy.ops.object.mode_set(mode = 'EDIT')#bpy.ops.object.editmode_toggle()
 		bpy.ops.mesh.normals_make_consistent(inside=False)
 		bpy.ops.mesh.quads_convert_to_tris()
+		#bpy.ops.uv.unwrap(method='ANGLE_BASED', fill_holes=True, correct_aspect=True, use_subsurf_data=False, margin=0.1)
 		bpy.ops.object.mode_set(mode = 'OBJECT')
-		bpy.ops.uv.smart_project(angle_limit=66.0, island_margin=0.0, user_area_weight=0.0)
+		bpy.ops.uv.smart_project(angle_limit=89.0, island_margin=0.0, user_area_weight=0.0)
 		bpy.ops.uv.export_layout(filepath=newpath + "uv_"+objs.name + ".png", check_existing=False, export_all=False, mode='PNG', size=(1024,1024), opacity=0.25)
 		objs.select = False
 

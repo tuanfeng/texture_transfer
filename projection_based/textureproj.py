@@ -1,4 +1,4 @@
-#usage: python textureproj.py image.png model_t.obj view_estimate.txt
+#usage: python textureproj.py image.png mask.png model_t.obj view_estimate.txt
 
 import sys
 import os
@@ -8,10 +8,14 @@ import scipy.io as spio
 import numpy as np
 
 image_file = sys.argv[1]
-model_file = sys.argv[2]
-ve_file = sys.argv[3]
+mask_file = sys.argv[2]
+model_file = sys.argv[3]
+ve_file = sys.argv[4]
 
 rimg = Image.open(image_file)
+
+rimg_mask = Image.open(mask_file)
+
 rimg_pd={}
 
 #upsam=10
@@ -122,6 +126,22 @@ img_rd={} #depth
 
 cim=0
 
+def crossproduct3d(u1,u2,u3,v1,v2,v3):
+	s1=u2*v3-u3*v2
+	s2=u3*v1-u1*v3
+	s3=u1*v2-u2*v1
+	return (s1,s2,s3)
+
+def pointproduct3d(u1,u2,u3,v1,v2,v3):
+	return u1*v1+u2*v2+u3*v3
+
+def normalize3d(x1,y1,z1):
+	n=pow(x1*x1+y1*y1+z1*z1,0.5)
+	if n != 0:
+		return (x1/n,y1/n,z1/n)
+	else:
+		return 1
+
 for line in f2.readlines():
 	linet = line.split()
 	if linet[0] == 'usemtl':
@@ -198,6 +218,20 @@ for line in f2.readlines():
 		t1y=vit_[2,2]-vit_[1,2]
 		t2x=vit_[3,1]-vit_[1,1]
 		t2y=vit_[3,2]-vit_[1,2]
+					
+		v3d_base_x=arrayv[fv[order[0]],1]
+		v3d_base_y=arrayv[fv[order[0]],2]
+		v3d_base_z=arrayv[fv[order[0]],3]
+		v3d_1_x=arrayv[fv[order[1]],1]
+		v3d_1_y=arrayv[fv[order[1]],2]
+		v3d_1_z=arrayv[fv[order[1]],3]
+		v3d_2_x=arrayv[fv[order[2]],1]
+		v3d_2_y=arrayv[fv[order[2]],2]
+		v3d_2_z=arrayv[fv[order[2]],3]
+
+
+		fn=crossproduct3d(v3d_1_x-v3d_base_x,v3d_1_y-v3d_base_y,v3d_1_z-v3d_base_z,v3d_2_x-v3d_base_x,v3d_2_y-v3d_base_y,v3d_2_z-v3d_base_z)
+		facenormal=normalize3d(fn[0],fn[1],fn[2])
 
 		if int(vit_[1,1]) < int(vit_[2,1]) and t1y*t2x-t1x*t2y != 0:
 			frx=int(vit_[1,1])
@@ -209,24 +243,12 @@ for line in f2.readlines():
 				q2=vit_[1,2]+(t2y)*p2
 				q1_=int(min(q1,q2))
 				q2_=int(max(q1,q2))
-				#if q1_>0:
-				#	q1_=q1_-1
-				#if q2_<img_size_y-1:
-				#	q2_=q2_+1
 				for lj in range(q1_,q2_+1):
 					px = li-vit_[1,1]
 					py = lj-vit_[1,2]
 					mu=(t1y*px-t1x*py)/(t1y*t2x-t1x*t2y)
 					lam=(t2y*px-t2x*py)/(t2y*t1x-t2x*t1y)
-					v3d_base_x=arrayv[fv[order[0]],1]
-					v3d_base_y=arrayv[fv[order[0]],2]
-					v3d_base_z=arrayv[fv[order[0]],3]
-					v3d_1_x=arrayv[fv[order[1]],1]
-					v3d_1_y=arrayv[fv[order[1]],2]
-					v3d_1_z=arrayv[fv[order[1]],3]
-					v3d_2_x=arrayv[fv[order[2]],1]
-					v3d_2_y=arrayv[fv[order[2]],2]
-					v3d_2_z=arrayv[fv[order[2]],3]
+
 					v3d_x_=v3d_base_x+lam*(v3d_1_x-v3d_base_x)+mu*(v3d_2_x-v3d_base_x)
 					v3d_y_=v3d_base_y+lam*(v3d_1_y-v3d_base_y)+mu*(v3d_2_y-v3d_base_y)
 					v3d_z_=v3d_base_z+lam*(v3d_1_z-v3d_base_z)+mu*(v3d_2_z-v3d_base_z)
@@ -258,6 +280,9 @@ for line in f2.readlines():
 							pix = (int(pix0),int(pix1),int(pix2))
 						if li>=0 and li<img_size_x and lj>=0 and lj<img_size_y:
 							dpt=(v3d_x-cx)*(v3d_x-cx)+(v3d_y-cy)*(v3d_y-cy)+(v3d_z-cz)*(v3d_z-cz)
+							dv=normalize3d((v3d_x-cx),(v3d_y-cy),(v3d_z-cz))
+							#if pointproduct3d(facenormal[0],facenormal[1],facenormal[2],dv[0],dv[1],dv[2]) > 0.8:
+								#dpt=0
 							if rimg_pd[pfx,pfy]>dpt:
 								rimg_pd[pfx,pfy] = dpt
 							img_p[cim][li,img_size_y-lj-1]=pix
@@ -269,6 +294,15 @@ for line in f2.readlines():
 		t1y=vit_[2,2]-vit_[3,2]
 		t2x=vit_[1,1]-vit_[3,1]
 		t2y=vit_[1,2]-vit_[3,2]
+		v3d_base_x=arrayv[fv[order[2]],1]
+		v3d_base_y=arrayv[fv[order[2]],2]
+		v3d_base_z=arrayv[fv[order[2]],3]
+		v3d_1_x=arrayv[fv[order[1]],1]
+		v3d_1_y=arrayv[fv[order[1]],2]
+		v3d_1_z=arrayv[fv[order[1]],3]
+		v3d_2_x=arrayv[fv[order[0]],1]
+		v3d_2_y=arrayv[fv[order[0]],2]
+		v3d_2_z=arrayv[fv[order[0]],3]
 
 		if int(vit_[2,1]) < int(vit_[3,1]) and t1y*t2x-t1x*t2y != 0:
 			frx=int(vit_[2,1])
@@ -289,15 +323,7 @@ for line in f2.readlines():
 					py = lj-vit_[3,2]
 					mu=(t1y*px-t1x*py)/(t1y*t2x-t1x*t2y)
 					lam=(t2y*px-t2x*py)/(t2y*t1x-t2x*t1y)
-					v3d_base_x=arrayv[fv[order[2]],1]
-					v3d_base_y=arrayv[fv[order[2]],2]
-					v3d_base_z=arrayv[fv[order[2]],3]
-					v3d_1_x=arrayv[fv[order[1]],1]
-					v3d_1_y=arrayv[fv[order[1]],2]
-					v3d_1_z=arrayv[fv[order[1]],3]
-					v3d_2_x=arrayv[fv[order[0]],1]
-					v3d_2_y=arrayv[fv[order[0]],2]
-					v3d_2_z=arrayv[fv[order[0]],3]
+
 					v3d_x_=v3d_base_x+lam*(v3d_1_x-v3d_base_x)+mu*(v3d_2_x-v3d_base_x)
 					v3d_y_=v3d_base_y+lam*(v3d_1_y-v3d_base_y)+mu*(v3d_2_y-v3d_base_y)
 					v3d_z_=v3d_base_z+lam*(v3d_1_z-v3d_base_z)+mu*(v3d_2_z-v3d_base_z)
@@ -329,6 +355,9 @@ for line in f2.readlines():
 							pix = (int(pix0),int(pix1),int(pix2))
 						if li>=0 and li<img_size_x and lj>=0 and lj<img_size_y:
 							dpt=(v3d_x-cx)*(v3d_x-cx)+(v3d_y-cy)*(v3d_y-cy)+(v3d_z-cz)*(v3d_z-cz)
+							dv=normalize3d((v3d_x-cx),(v3d_y-cy),(v3d_z-cz))
+							#if pointproduct3d(facenormal[0],facenormal[1],facenormal[2],dv[0],dv[1],dv[2]) > 0.8:
+								#dpt=0
 							if rimg_pd[pfx,pfy]>dpt:
 								rimg_pd[pfx,pfy] = dpt
 							img_p[cim][li,img_size_y-lj-1]=pix
@@ -343,7 +372,7 @@ dpt_max=-1.0
 
 for i in range(0,rimg.size[0]):
 	for j in range(0,rimg.size[1]):
-		if rimg_pd[i,j]>dpt_max and rimg_pd[i,j]<1000:
+		if rimg_pd[i,j]>dpt_max and rimg_pd[i,j]<100000:
 			dpt_max = rimg_pd[i,j]
 		if rimg_pd[i,j]<dpt_min:
 			dpt_min = rimg_pd[i,j]
@@ -353,16 +382,71 @@ print 'depth range: ',dpt_min,dpt_max
 dimg = Image.new( 'RGB', rimg.size, "green") # create a new black image
 pixels = dimg.load() # create the pixel map
 
-for i in range(dimg.size[0]):    # for every pixel:
+for i in range(dimg.size[0]):   
     for j in range(dimg.size[1]):
-        if rimg_pd[i,j]<1000:
-        	pixels[i,j] = (int(rimg_pd[i,j]/dpt_max*255),int(rimg_pd[i,j]/dpt_max*255),int(rimg_pd[i,j]/dpt_max*255)) # set the colour accordingly
-        if rimg_pd[i,j]>1000:
+        if rimg_pd[i,j]<100000:
+        	pixels[i,j] = (int((rimg_pd[i,j]-dpt_min)/(dpt_max-dpt_min)*255),int((rimg_pd[i,j]-dpt_min)/(dpt_max-dpt_min)*255),int((rimg_pd[i,j]-dpt_min)/(dpt_max-dpt_min)*255)) # set the colour accordingly
+        else:
         	pixels[i,j] = (255,0,0)
+
 
 #dimg.show()
 dimg.save(model_file[:-(4+len(obj_name))] + 'depth.png')
+'''
+dc_img = Image.new( 'RGB', rimg.size, (255,255,255))
+pixdc = dc_img.load()
 
+#depth jump
+for i in range(1,dimg.size[0]):   
+    for j in range(1,dimg.size[1]):
+    	def dis2d(a,b):
+    		#print a[0],a[1],a[2],b[0],b[1],b[2]
+    		return (a[0]-b[0])*(a[0]-b[0])+(a[1]-b[1])*(a[1]-b[1])+(a[2]-b[2])*(a[2]-b[2])
+    	if pixels[i,j] == (255,0,0):
+    		pixdc[i,j] = (0,0,0)
+    		continue
+    	if dis2d(pixels[i,j],pixels[i-1,j])+dis2d(pixels[i,j],pixels[i,j-1])>100:
+    		pixdc[i,j] = (0,0,0)
+
+dc_img.save(model_file[:-(4+len(obj_name))] + 'depth_1.png')
+
+#gradient jump
+for i in range(2,dimg.size[0]):   
+    for j in range(2,dimg.size[1]):
+      	if pixels[i,j] == (255,0,0):
+    		pixdc[i,j] = (0,0,0)
+    		continue
+    	g1x=abs(rimg_pd[i-2,j]-rimg_pd[i-1,j])
+    	g1y=abs(rimg_pd[i-1,j-1]-rimg_pd[i-1,j])
+    	g2x=abs(rimg_pd[i,j-2]-rimg_pd[i,j-1])
+    	g2y=abs(rimg_pd[i-1,j-1]-rimg_pd[i,j-1])
+    	g3x=abs(rimg_pd[i-1,j]-rimg_pd[i,j])
+    	g3y=abs(rimg_pd[i,j-1]-rimg_pd[i,j])
+    	gax=(g1x+g2x+g3x)/3.0
+    	gay=(g1y+g2y+g3y)/3.0
+    	#print abs(gax-g1x)+abs(gax-g2x)+abs(gax-g3x)+abs(gay-g1y)+abs(gay-g2y)+abs(gay-g3y)
+    	if abs(gax-g1x)+abs(gax-g2x)+abs(gax-g3x)+abs(gay-g1y)+abs(gay-g2y)+abs(gay-g3y)>10:
+    		pixdc[i,j] = (0,0,0)
+
+dc_img.save(model_file[:-(4+len(obj_name))] + 'depth_2.png')
+
+dc_img_2 = Image.new( 'RGB', rimg.size, (255,255,255))
+pixdc_2 = dc_img_2.load()
+for i in range(0,dimg.size[0]):   
+    for j in range(0,dimg.size[1]):
+    	pixdc_2[i,j]=pixdc[i,j]
+
+border = 8
+for i in range(1,dimg.size[0]-1):   
+    for j in range(1,dimg.size[1]-1):
+    	if pixdc[i,j] == (0,0,0) and (pixdc[i-1,j] != (0,0,0) or pixdc[i-1,j-1] != (0,0,0) or pixdc[i-1,j+1] != (0,0,0) or pixdc[i,j-1] != (0,0,0) or pixdc[i,j+1] != (0,0,0) or pixdc[i+1,j-1] != (0,0,0) or pixdc[i+1,j] != (0,0,0) or pixdc[i+1,j+1] != (0,0,0)):
+    		for pi in range(-border,border+1):
+    			for pj in range(-border,border+1):
+    				if pi*pi+pj*pj<2*border*border and i+pi>=0 and i+pi<dimg.size[0] and j+pj>=0 and j+pj<dimg.size[1]:
+    					pixdc_2[i+pi,j+pj]=(0,0,0)
+
+dc_img_2.save(model_file[:-(4+len(obj_name))] + 'depth-jump.png')
+'''
 
 group_number=np.zeros((1),dtype=int)
 group_number[0]=cim
@@ -389,11 +473,11 @@ for i in range(1,cim+1):
 				pixel[i-1,li,lj,1] = img_p[i][li,lj][1]
 				pixel[i-1,li,lj,2] = img_p[i][li,lj][2]
 
-				if px<img_size_x-1:
+				if px<rimg.size[0]-1:
 					px_=px+1
 				else:
 					px_=px
-				if py<img_size_y-1:
+				if py<rimg.size[1]-1:
 					py_=py+1
 				else:
 					py_=py
@@ -406,12 +490,24 @@ for i in range(1,cim+1):
 				else:
 					py__=py
 
+				#print img_size_x,img_size_y,px,py,px_,py_,px__,py__
 				dpt=max(rimg_pd[px__,py__],rimg_pd[px__,py_],rimg_pd[px__,py],rimg_pd[px_,py__],rimg_pd[px_,py_],rimg_pd[px_,py],rimg_pd[px,py__],rimg_pd[px,py_],rimg_pd[px,py])
+				
 				if img_rd[i][li,lj]>dpt+ep:
 					img_p[i][li,lj]=(255,0,0)
 					pixel[i-1,li,lj,0] = 256
 					pixel[i-1,li,lj,1] = 0
 					pixel[i-1,li,lj,2] = 0
+
+				#print px,py,rimg_mask.getpixel((px,py))[0]
+
+				if rimg_mask.getpixel((px,py))[0]<100:
+					img_p[i][li,lj]=(255,0,0)
+					label[i-1,li,lj,0] = 60000
+					label[i-1,li,lj,1] = 60000
+					pixel[i-1,li,lj,0] = 256
+					pixel[i-1,li,lj,1] = 0
+					pixel[i-1,li,lj,2] = 0					
 			else:
 				label[i-1,li,lj,0] = 60000
 				label[i-1,li,lj,1] = 60000
